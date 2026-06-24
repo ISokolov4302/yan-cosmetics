@@ -1166,7 +1166,8 @@
         <div id="section-shop" class="content-section active">
             <!-- Banner -->
             <div class="banner">
-                <img src="./images/banner.png" alt="Banner">
+                <img src="./images/banner.png" alt="Banner"
+                    onerror="this.src='https://via.placeholder.com/500x200?text=Banner+Not+Found'">
             </div>
 
             <!-- Categories (dynamic) -->
@@ -1552,7 +1553,9 @@
 
         function getWhatsApp() {
             const stored = JSON.parse(localStorage.getItem('yan_config')) || {};
-            return stored.whatsapp || "77774558866";
+            let num = stored.whatsapp || "77774558866";
+            // Clean number for wa.me - only digits
+            return num.replace(/\D/g, '');
         }
 
         window.addEventListener('storage', (e) => {
