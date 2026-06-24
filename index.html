@@ -1,0 +1,2053 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yan Konstantinovich | Rejuvi Plus</title>
+    <meta name="description"
+        content="ÐšÐ¾ÑÐ¼ÐµÑ‚Ð¸ÐºÐ° Rejuvi Plus â€” Ð¿Ñ€Ð¾Ñ„ÐµÑÑÐ¸Ð¾Ð½Ð°Ð»ÑŒÐ½Ñ‹Ð¹ ÑƒÑ…Ð¾Ð´ Ð·Ð° ÐºÐ¾Ð¶ÐµÐ¹. ÐšÐ°Ñ‚Ð°Ð»Ð¾Ð³ Ñ‚Ð¾Ð²Ð°Ñ€Ð¾Ð² Ð¸ Ð·Ð°ÐºÐ°Ð· Ñ‡ÐµÑ€ÐµÐ· WhatsApp.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2b2b2b;
+            --secondary: #6c757d;
+            --accent: #dbe4ff;
+            --accent-dark: #b9cdff;
+            --bg-color: #f8f9fa;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --price-color: #e03131;
+            --radius: 16px;
+            --cart-green: #25D366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(-45deg, #e7f5ff, #fff0f6, #f8f9fa, #e3fafc);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px 120px 10px;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Profile Header */
+        .profile {
+            text-align: center;
+            padding: 20px 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            margin-bottom: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .profile-bio {
+            font-size: 14px;
+            color: var(--secondary);
+            font-weight: 400;
+        }
+
+        /* Banner */
+        .banner {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .banner img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 4px 0 16px;
+            scrollbar-width: none;
+            animation: fadeInUp 0.8s ease 0.3s backwards;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--primary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Products Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        @media (max-width: 480px) {
+            .products {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            background: #f1f3f5;
+            position: relative;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.08);
+        }
+
+        .product-title {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: var(--secondary);
+            margin-top: 6px;
+            margin-bottom: auto;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price-container {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .product-price-old {
+            font-size: 13px;
+            color: var(--secondary);
+            text-decoration: line-through;
+        }
+
+        .buy-btn {
+            margin-top: 12px;
+            width: 100%;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        .buy-btn.added {
+            background: var(--cart-green);
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+            transition: background 0.3s;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 16px;
+            background: #f1f3f5;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .modal-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--price-color);
+            margin-bottom: 16px;
+        }
+
+        .modal-desc {
+            font-size: 15px;
+            color: var(--secondary);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .modal-add-btn {
+            display: block;
+            width: 100%;
+            background: var(--cart-green);
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .modal-add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(37, 211, 102, 0.3);
+        }
+
+        /* ===== FLOATING CART BUTTON ===== */
+        .cart-float-btn {
+            position: fixed;
+            bottom: 120px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 200;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cart-float-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+        }
+
+        .cart-float-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--price-color);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            animation: popIn 0.3s ease;
+        }
+
+        .cart-badge.hidden {
+            display: none;
+        }
+
+        /* ===== CART SIDEBAR ===== */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            height: 100dvh;
+            background: white;
+            z-index: 2001;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .cart-sidebar.active {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .cart-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .cart-close-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f1f3f5;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .cart-close-btn:hover {
+            background: #dee2e6;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 24px;
+        }
+
+        .cart-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--secondary);
+            gap: 12px;
+        }
+
+        .cart-empty svg {
+            width: 64px;
+            height: 64px;
+            fill: #dee2e6;
+        }
+
+        .cart-empty p {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #f8f9fa;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .cart-item-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #f1f3f5;
+            flex-shrink: 0;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .cart-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cart-item-price {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .cart-qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            background: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .cart-qty-btn:hover {
+            background: #f1f3f5;
+            border-color: var(--primary);
+        }
+
+        .cart-qty-value {
+            font-size: 15px;
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-item-remove {
+            align-self: flex-start;
+            margin-top: 8px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: rgba(224, 49, 49, 0.08);
+            color: var(--price-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .cart-item-remove:hover {
+            background: rgba(224, 49, 49, 0.15);
+        }
+
+        .cart-footer {
+            padding: 20px 24px;
+            border-top: 1px solid #f1f3f5;
+            background: white;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .cart-total-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .cart-total-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cart-checkout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: var(--cart-green);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .cart-checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .cart-checkout-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+
+        .cart-clear-btn {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.2s;
+        }
+
+        .cart-clear-btn:hover {
+            color: var(--price-color);
+        }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast {
+            position: fixed;
+            bottom: 160px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-width: none;
+            margin-top: 0;
+            padding: 12px 10px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            z-index: 100;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer .container {
+            gap: 8px;
+        }
+
+        .footer-logo {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--primary);
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 4px;
+            width: 100%;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .social-inst {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .social-wa {
+            background: #25D366;
+        }
+
+        .social-icon {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .footer-bottom {
+            font-size: 11px;
+            color: var(--secondary);
+            margin-top: 2px;
+        }
+
+        /* Nav Tabs */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            padding: 5px;
+            border-radius: 40px;
+            gap: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 5px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 12px 5px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services */
+        .section-header-alt {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-header-alt h2 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .section-header-alt p {
+            font-size: 14px;
+            color: var(--secondary);
+        }
+
+        .service-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 1px solid white;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .service-item h3 {
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .service-item p {
+            font-size: 13px;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .service-price {
+            font-weight: 700;
+            color: var(--price-color);
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .btn-service {
+            margin-top: 5px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* Education */
+        .edu-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--radius);
+            border: 1px solid white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+        }
+
+        .edu-card.highlighted {
+            background: white;
+            border-color: var(--accent-dark);
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .edu-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .edu-btn {
+            background: var(--accent);
+            color: var(--primary);
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        /* Address */
+        .address-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .address-icon {
+            font-size: 40px;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+
+        .gis-btn {
+            background: #2cb462;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        /* ===== REVIEWS ===== */
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.15s, transform 0.1s;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .star-btn.active {
+            color: #f5a623;
+        }
+
+        .star-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .review-card {
+            border-bottom: 1px solid #f1f3f5;
+            padding: 14px 0;
+        }
+
+        .review-card:last-child {
+            border-bottom: none;
+        }
+
+        .review-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .review-author {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .review-date {
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .review-stars {
+            color: #f5a623;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .reviews-avg {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .reviews-avg-stars {
+            color: #f5a623;
+            font-size: 20px;
+            margin: 4px 0;
+        }
+
+        .reviews-count {
+            font-size: 13px;
+            color: #aaa;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile">
+            <img src="https://i.taplink.st/a/8/8/7/8/7d33d8.jpg?6" alt="Profile" class="profile-img">
+            <p class="profile-bio" id="site-logo-subtitle">Professional Cosmetologist | Rejuvi Plus Expert</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs" id="main-nav-tabs">
+            <!-- Rendered dynamically by JS -->
+            <button class="tab-btn active" onclick="showSection('shop')">Каталог</button>
+            <button class="tab-btn" onclick="showSection('address')">Адрес</button>
+        </nav>
+
+        <!-- SHOP SECTION -->
+        <div id="section-shop" class="content-section active">
+            <!-- Banner -->
+            <div class="banner">
+                <img src="./images/banner.png" alt="Banner">
+            </div>
+
+            <!-- Categories (dynamic) -->
+            <div class="categories" id="categories-container">
+                <!-- Rendered by JS -->
+            </div>
+
+            <div class="products" id="products-container">
+                <!-- Products injected by JS -->
+            </div>
+        </div>
+
+        <!-- DYNAMIC SECTIONS CONTAINER -->
+        <div id="dynamic-sections-container">
+            <!-- Services, Education, and any new sections rendered here -->
+        </div>
+
+        <!-- ADDRESS SECTION -->
+        <div id="section-address" class="content-section">
+            <div class="address-card" style="box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 20px;">
+                <div class="address-icon">📍</div>
+                <h3>Ждем вас по адресу:</h3>
+                <p style="font-size: 16px; font-weight: 700; margin-bottom: 5px; color: var(--primary);"
+                    id="gis-org-name-text">Yan Konstantinovich</p>
+                <p style="font-size: 14px; margin-bottom: 5px;" id="gis-address-text">г. Алматы, ЖК "Акварель"</p>
+                <p style="color: var(--secondary); font-size: 13px;" id="gis-hours-text">Ежедневно с 10:00 до 20:00</p>
+                <div style="margin: 10px 0;">
+                    <a href="https://2gis.kz/almaty/firm/70000001059683656" target="_blank" class="gis-btn"
+                        id="gis-link-main">
+                        <span>Открыть в 2GIS</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- REVIEWS SECTION -->
+        <div id="section-reviews" class="content-section" style="display:none;">
+            <div style="background:white; border-radius:20px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+                <h3 style="font-size:18px; font-weight:700; margin-bottom:18px; text-align:center;">⭐ Отзывы</h3>
+
+                <!-- Summary -->
+                <div id="reviews-summary"
+                    style="text-align:center; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid #f1f3f5;">
+                </div>
+
+                <!-- Review Form -->
+                <div style="background:#f8f9fa; border-radius:14px; padding:18px; margin-bottom:20px;">
+                    <p style="font-size:13px; font-weight:600; margin-bottom:10px; color:#555;">Оставить отзыв</p>
+                    <input id="review-name" type="text" placeholder="Ваше имя" maxlength="60"
+                        style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid #ddd; font-family:inherit; font-size:14px; margin-bottom:10px;">
+                    <!-- Stars -->
+                    <div style="display:flex; gap:6px; margin-bottom:10px;" id="star-picker">
+                        <span style="font-size:13px; color:#555; align-self:center; margin-right:4px;">*Оценка:</span>
+                        <button class="star-btn" data-val="1" onclick="pickStar(1)">☆</button>
+                        <button class="star-btn" data-val="2" onclick="pickStar(2)">☆</button>
+                        <button class="star-btn" data-val="3" onclick="pickStar(3)">☆</button>
+                        <button class="star-btn" data-val="4" onclick="pickStar(4)">☆</button>
+                        <button class="star-btn" data-val="5" onclick="pickStar(5)">☆</button>
+                    </div>
+                    <textarea id="review-text" placeholder="Напишите ваш отзыв..." maxlength="400" rows="3"
+                        style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid #ddd; font-family:inherit; font-size:14px; resize:none; margin-bottom:10px;"></textarea>
+                    <!-- Photo upload -->
+                    <div style="margin-bottom:10px;">
+                        <label for="review-photo-input"
+                            style="display:inline-flex; align-items:center; gap:7px; padding:9px 16px; background:#fff; border:1px dashed #ccc; border-radius:10px; cursor:pointer; font-size:13px; color:#555;">
+                            📷 Прикрепить фото
+                        </label>
+                        <input type="file" id="review-photo-input" accept="image/*" style="display:none;"
+                            onchange="previewReviewPhoto(event)">
+                        <div id="review-photo-preview" style="margin-top:8px;"></div>
+                    </div>
+                    <button onclick="submitReview()"
+                        style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:12px; font-family:inherit; font-weight:700; font-size:14px; cursor:pointer;">
+                        Отправить отзыв
+                    </button>
+                    <p id="review-msg" style="font-size:12px; color:var(--price-color); margin-top:6px; display:none;">
+                    </p>
+                </div>
+
+                <!-- Reviews List -->
+                <div id="reviews-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+
+            <div class="footer-socials">
+                <a href="https://instagram.com/yan_konstantinovich" target="_blank" class="social-link social-inst">
+                    <svg class="social-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                    Instagram
+                </a>
+                <a href="https://wa.me/77774558866" id="footer-wa-link" target="_blank" class="social-link social-wa">
+                    <svg class="social-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M11.944 0A12 12 0 000 12a12 12 0 003.82 8.76L2 24l3.41-1.84A12 12 0 1011.944 0zm0 22a10 10 0 01-5.32-1.52l-.38-.22-2.34 1.25 1.26-2.28-.24-.38A10 10 0 1111.944 22zm5.4-7.39c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.77-1.64-2.07-.17-.3 0-.46.15-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.54.08-.82.38-.28.3-1.07 1.05-1.07 2.56 0 1.5 1.1 2.96 1.25 3.16.15.2 2.16 3.3 5.23 4.63.73.31 1.3.5 1.75.64.74.24 1.41.2 1.94.12.59-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.2-.57-.35z" />
+                    </svg>
+                    WhatsApp
+                </a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Yan Konstantinovich | Rejuvi Plus | <a href="admin.html"
+                    style="color: inherit; text-decoration: none; opacity: 0.5;">Админ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button -->
+    <button class="cart-float-btn" id="cart-float-btn" onclick="openCart()">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+        </svg>
+        <span class="cart-badge hidden" id="cart-badge">0</span>
+    </button>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Корзина</h2>
+            <button class="cart-close-btn" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items rendered here -->
+        </div>
+        <div class="cart-footer" id="cart-footer" style="display: none;">
+            <div class="cart-total">
+                <span class="cart-total-label">Итого:</span>
+                <span class="cart-total-value" id="cart-total-value">0 ₸</span>
+            </div>
+            <a href="#" class="cart-checkout-btn" id="cart-checkout-btn" target="_blank">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M11.944 0A12 12 0 000 12a12 12 0 003.82 8.76L2 24l3.41-1.84A12 12 0 1011.944 0zm0 22a10 10 0 01-5.32-1.52l-.38-.22-2.34 1.25 1.26-2.28-.24-.38A10 10 0 1111.944 22zm5.4-7.39c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.77-1.64-2.07-.17-.3 0-.46.15-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.54.08-.82.38-.28.3-1.07 1.05-1.07 2.56 0 1.5 1.1 2.96 1.25 3.16.15.2 2.16 3.3 5.23 4.63.73.31 1.3.5 1.75.64.74.24 1.41.2 1.94.12.59-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.08-.12-.27-.2-.57-.35z" />
+                </svg>
+                Заказать в WhatsApp
+            </a>
+            <button class="cart-clear-btn" onclick="clearCart()">Очистить корзину</button>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img src="" alt="" class="modal-img" id="modal-img">
+            <h2 class="modal-title" id="modal-title">Название</h2>
+            <div class="modal-price" id="modal-price">1000 ₸</div>
+            <p class="modal-desc" id="modal-desc">Описание</p>
+        </div>
+    </div>
+
+    <script>
+        // ===== PRODUCTS DATA =====
+        const defaultProducts = [
+            { id: 1, category: "Омоложение", title: "Набор Rejuvi ANTI AGE", price: 85000, price_compare: null, picture: "./images/anti-age.webp", description: "Полный комплексный антивозрастной уход: очищение, увлажнение, сыворотки с витамином С и ночные кремы для интенсивного омоложения и подтяжки кожи." },
+            { id: 2, category: "Увлажнение", title: "Rejuvi Hyaluronic Acid Serum", price: 29000, price_compare: 35000, picture: "./images/hyaluronic-acid-serum.webp", description: "Концентрированная сыворотка с гиалуроновой кислотой. Глубокое увлажнение и удержание влаги. Подходит в том числе для микронидлинга." },
+            { id: 3, category: "Увлажнение", title: "Foot Repair Cream", price: 15900, price_compare: 18000, picture: "./images/foot-repair-cream-.webp", description: "Интенсивный восстанавливающий крем для ног. Смягчает, питает и заживляет сухую и потрескавшуюся кожу стоп." },
+            { id: 4, category: "Очищение", title: "Purifying Mask", price: 18900, price_compare: 21900, picture: "./images/purifying-mask-.webp", description: "Эффективная очищающая маска для лица. Глубоко очищает поры, удаляет загрязнения и излишки себума, матирует кожу." },
+            { id: 5, category: "Омоложение", title: "Bio-Firming Gel", price: 29000, price_compare: 34000, picture: "./images/Bio - Firming Gel.webp", description: "Укрепляющий био-гель. Обеспечивает мощный лифтинг-эффект, повышает упругость и эластичность кожи." },
+            { id: 6, category: "Уход за телом", title: "Body Lotion", price: 17500, price_compare: 20000, picture: "./images/body-lotion.webp", description: "Роскошный увлажняющий лосьон для тела. Быстро впитывается, делая кожу невероятно гладкой, мягкой и шелковистой." },
+            { id: 7, category: "Омоложение", title: "Facial Contour Serum", price: 32000, price_compare: 38000, picture: "./images/facial-contour-serum-.webp", description: "Уникальная подтягивающая сыворотка для контуров лица. Эффективно моделирует овал и возвращает коже тонус." },
+            { id: 8, category: "Все", title: "Facial Sun Block (SPF 40)", price: 21000, price_compare: 24500, picture: "./images/Facial Sun Block(SPF 40).webp", description: "Надежная защита от солнца для лица с SPF 40. Предотвращает фотостарение, появление морщин и пигментации." },
+            { id: 9, category: "Все", title: "Maintenance", price: 16800, price_compare: 19000, picture: "./images/maintenance-.webp", description: "Эффективное средство против выпадения волос. Активно укрепляет волосяные фолликулы и стимулирует рост здоровых волос." },
+            { id: 1, category: "Омоложение", title: "Набор Rejuvi ANTI AGE", price: 85000, price_compare: null, picture: "./images/anti-age.png", description: "Полный комплексный антивозрастной уход: очищение, увлажнение, сыворотки с витамином С и ночные кремы для интенсивного омоложения и подтяжки кожи." },
+            { id: 2, category: "Увлажнение", title: "Rejuvi Hyaluronic Acid Serum", price: 29000, price_compare: 35000, picture: "./images/hyaluronic-acid-serum.png", description: "Концентрированная сыворотка с гиалуроновой кислотой. Глубокое увлажнение и удержание влаги. Подходит в том числе для микронидлинга." },
+            { id: 3, category: "Увлажнение", title: "Foot Repair Cream", price: 15900, price_compare: 18000, picture: "./images/foot-repair-cream-.png", description: "Интенсивный восстанавливающий крем для ног. Смягчает, питает и заживляет сухую и потрескавшуюся кожу стоп." },
+            { id: 4, category: "Очищение", title: "Purifying Mask", price: 18900, price_compare: 21900, picture: "./images/purifying-mask-.png", description: "Эффективная очищающая маска для лица. Глубоко очищает поры, удаляет загрязнения и излишки себума, матирует кожу." },
+            { id: 5, category: "Омоложение", title: "Bio-Firming Gel", price: 29000, price_compare: 34000, picture: "./images/bio-firming-gel.png", description: "Укрепляющий био-гель. Обеспечивает мощный лифтинг-эффект, повышает упругость и эластичность кожи." },
+            { id: 6, category: "Уход за телом", title: "Body Lotion", price: 17500, price_compare: 20000, picture: "./images/body-lotion.png", description: "Роскошный увлажняющий лосьон для тела. Быстро впитывается, делая кожу невероятно гладкой, мягкой и шелковистой." },
+            { id: 7, category: "Омоложение", title: "Facial Contour Serum", price: 32000, price_compare: 38000, picture: "./images/facial-contour-serum-.png", description: "Уникальная подтягивающая сыворотка для контуров лица. Эффективно моделирует овал и возвращает коже тонус." },
+            { id: 8, category: "Все", title: "Facial Sun Block (SPF 40)", price: 21000, price_compare: 24500, picture: "./images/facial-sun-block-spf-40.png", description: "Надежная защита от солнца для лица с SPF 40. Предотвращает фотостарение, появление морщин и пигментации." },
+            { id: 9, category: "Все", title: "Maintenance", price: 16800, price_compare: 19000, picture: "./images/maintenance-.png", description: "Эффективное средство против выпадения волос. Активно укрепляет волосяные фолликулы и стимулирует рост здоровых волос." },
+            { id: 10, category: "ANTI-Акне", title: "Normalizing Formula ANTI ACNE", price: 23500, price_compare: 27000, picture: "./images/normalizing-formula-anti-acne.png", description: "Специальная нормализующая формула для проблемной кожи. Снимает покраснения, уменьшает воспаления и предотвращает появление акне." },
+            { id: 11, category: "Очищение", title: "Rejuvi Shower Cream", price: 12500, price_compare: 15000, picture: "./images/rejuvi-shower-cream-.png", description: "Мягкий крем-гель для душа. Деликатно очищает кожу, не пересушивая её, и оставляет легкий приятный аромат." },
+            { id: 12, category: "Все", title: "Solution for Ingrown Hair", price: 14900, price_compare: 17500, picture: "./images/rejuvi-solution-for-ingrown-hair-.png", description: "Эффективный крем против врастания волос. Мгновенно успокаивает раздражение после депиляции или бритья." },
+            { id: 13, category: "Все", title: "Rejuville Anti-Dandruff Shampoo", price: 13900, price_compare: 16000, picture: "./images/rejuville-anti-dandruff-shampoo.png", description: "Специализированный шампунь против перхоти. Тщательно очищает кожу головы, нормализует баланс и устраняет зуд." },
+            { id: 14, category: "Все", title: "Rejuville Hair Revitalizer", price: 19500, price_compare: 23000, picture: "./images/rejuville-hair-revitalizer-.png", description: "Универсальное восстанавливающее средство для волос. Возвращает волосам жизненную силу, густоту и здоровый блеск." },
+            { id: 15, category: "Все", title: "Retardant Gel", price: 15500, price_compare: 18000, picture: "./images/retardant-gel-.png", description: "Инновационный гель, замедляющий рост нежелательных волос на лице. Увеличивает интервалы между процедурами удаления волос." },
+            { id: 16, category: "Все", title: "SKIN WHITENING", price: 45000, price_compare: 52000, picture: "./images/skin-whitening.png", description: "Профессиональный набор для отбеливания кожи. Эффективно и безопасно борется с пигментацией и выравнивает тон лица." },
+            { id: 17, category: "Rejuvi Plus", title: "Rejuvi Plus Essential Cleansing Gel – Очищающий гель", price: 20900, price_compare: 24990, picture: "./images/rejuvi-plus-essential-cleansing-gel-.png", description: "Очищающий гель для мягкого и глубокого очищения кожи." },
+            { id: 18, category: "Увлажнение", title: "Ночной крем Rejuvi Plus для сухой кожи", price: 26900, price_compare: 32990, picture: "./images/rejuvi-plus-.png", description: "Питательный ночной крем, специально разработанный для глубокого увлажнения сухой кожи." },
+            { id: 19, category: "Увлажнение", title: "Ночной крем Rejuvi Plus для нормальной кожи", price: 26900, price_compare: 32990, picture: "./images/rejuvi-plus-.png", description: "Увлажняющий ночной крем для нормальной и комбинированной кожи." },
+            { id: 20, category: "Омоложение", title: "Rejuvi Plus Vital Protection – Дневной крем \"Жизненная защита\"", price: 26900, price_compare: 32990, picture: "./images/rejuvi-plus-vital-protection-.png", description: "Дневной крем, защищающий кожу от вредных факторов окружающей среды." },
+            { id: 21, category: "Очищение", title: "Feminine Wash - Гель для интимной гигиены", price: 18900, price_compare: 23990, picture: "./images/feminine-wash-.png", description: "Деликатный гель для интимной гигиены. Поддерживает оптимальный pH-баланс." },
+            { id: 22, category: "Омоложение", title: "Rejuvi Plus Firming Eye Complex", price: 26900, price_compare: 31990, picture: "./images/rejuvi-plus-firming-eye-complex.png", description: "Укрепляющий гель для кожи вокруг глаз. Уменьшает морщинки и подтягивает кожу." },
+            { id: 23, category: "Увлажнение", title: "Rejuvi Plus Natural Soothing Gel", price: 25900, price_compare: 30990, picture: "./images/rejuvi-plus-natural-soothing-gel-.png", description: "Натуральный успокаивающий гель для снятия раздражения и глубокого увлажнения." },
+            { id: 24, category: "Очищение", title: "Rejuvi Plus Revitalizing Tonic", price: 21900, price_compare: 25990, picture: "./images/rejuvi-plus-revitalizing-tonic.png", description: "Оживляющий тоник для подготовки кожи к нанесению кремов и сывороток." },
+            { id: 25, category: "ANTI-Акне", title: "Rejuvi Plus Activated Facial Wash", price: 20900, price_compare: 24990, picture: "./images/rejuvi-plus-activated-facial-wash.png", description: "Активированное очищающее средство для проблемной кожи лица." },
+            { id: 26, category: "Очищение", title: "Rejuvi Plus Gentle Purifying Emulsion", price: 20900, price_compare: 24990, picture: "./images/rejuvi-plus-gentle-purifying-emulsion.png", description: "Деликатная эмульсия для нежного очищения чувствительной кожи." },
+            { id: 27, category: "AHA кислоты", title: "Rejuvi Plus Essential Serum", price: 31900, price_compare: 37990, picture: "./images/rejuvi-plus-essential-serum.png", description: "Сыворотка с витамином С и AHA кислотами для сияния кожи." },
+            { id: 28, category: "Омоложение", title: "Rejuvi Plus Bio-Refining Complex", price: 27900, price_compare: 33990, picture: "./images/rejuvi-bio-refining-complex.png", description: "Био-обновляющий комплекс для гладкой и молодой кожи." }
+        ];
+
+        // ===== DATA STATE =====
+
+        // ===== TAB NAVIGATION =====
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.getElementById('section-' + sectionId).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${sectionId}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        let products = [];
+        let siteCategories = [];
+        let cart = JSON.parse(localStorage.getItem('yan_cart')) || [];
+        let PRODUCT_CATEGORIES_EXCLUDE = [];
+        try {
+            siteCategories = JSON.parse(localStorage.getItem('yan_categories')) || ['Все', 'AHA кислоты', 'ANTI-Акне', 'Rejuvi Plus', 'Увлажнение', 'Омоложение', 'Очищение', 'Уход за телом', 'Чистки лица', 'Обучение'];
+            if (!Array.isArray(siteCategories)) siteCategories = ['Все', 'AHA кислоты', 'ANTI-Акне', 'Rejuvi Plus', 'Увлажнение', 'Омоложение', 'Очищение', 'Уход за телом', 'Чистки лица', 'Обучение'];
+        } catch (e) {
+            siteCategories = ['Все', 'AHA кислоты', 'ANTI-Акне', 'Rejuvi Plus', 'Увлажнение', 'Омоложение', 'Очищение', 'Уход за телом', 'Чистки лица', 'Обучение'];
+        }
+
+        const storedProducts = localStorage.getItem('yan_products');
+        if (storedProducts) {
+            try {
+                products = JSON.parse(storedProducts);
+                if (!Array.isArray(products) || products.length === 0) products = [...defaultProducts];
+            } catch (e) {
+                products = [...defaultProducts];
+            }
+        } else {
+            products = [...defaultProducts];
+            localStorage.setItem('yan_products', JSON.stringify(products));
+        }
+
+        // ===== RENDER DYNAMIC CATEGORIES IN SHOP =====
+        function renderShopCategories() {
+            const container = document.getElementById('categories-container');
+            const shopCats = siteCategories.filter(c => !PRODUCT_CATEGORIES_EXCLUDE.includes(c));
+            container.innerHTML = shopCats.map(cat =>
+                `<button class="category-btn${cat === 'Все' ? ' active' : ''}" data-category="${cat}">${cat === 'Все' ? 'Все товары' : cat}</button>`
+            ).join('');
+
+            // Re-bind click events
+            container.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    container.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    renderProducts(e.target.getAttribute('data-category'));
+                });
+            });
+        }
+
+        // ===== DYNAMIC SECTIONS SYSTEM =====
+        const DEFAULT_MENU = [
+            { id: 'education', title: 'Обучение', cat: 'Обучение' }
+        ];
+
+        function getSiteSections() {
+            try {
+                let sections = JSON.parse(localStorage.getItem('yan_site_sections'));
+                if (!Array.isArray(sections)) return [...DEFAULT_MENU];
+                return sections.filter(s => s && typeof s === 'object' && s.id);
+            } catch (e) {
+                return [...DEFAULT_MENU];
+            }
+        }
+
+        function renderDynamicSections() {
+            const allSections = getSiteSections();
+            const sections = (Array.isArray(allSections) ? allSections : []).filter(s => s.id !== 'shop');
+            const navContainer = document.getElementById('main-nav-tabs');
+            const contentContainer = document.getElementById('dynamic-sections-container');
+
+            // 1. Render Tabs
+            let navHtml = `<button class="tab-btn active" onclick="showSection('shop')">Каталог</button>`;
+            sections.forEach(sec => {
+                navHtml += `<button class="tab-btn" onclick="showSection('${sec.id}')">${sec.title}</button>`;
+            });
+            navHtml += `<button class="tab-btn" onclick="showSection('address')">Адрес</button>`;
+            if (navContainer) navContainer.innerHTML = navHtml;
+
+            // 2. Render Content Sections
+            let contentHtml = '';
+            sections.forEach(sec => {
+                const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+                const items = products.filter(p => mapping[p.category] === sec.id || (sec.cat === p.category && !mapping[p.category]));
+                contentHtml += `
+                <div id="section-${sec.id}" class="content-section">
+                    <div class="section-header-alt">
+                        <h2>${sec.title}</h2>
+                        <p>${sec.cat === 'Обучение' ? 'Индивидуальное обучение для специалистов' : 'Профессиональные процедуры для вашей кожи'}</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        ${items.length > 0 ? items.map(item => {
+                    const priceFormatted = new Intl.NumberFormat('ru-RU').format(item.price) + ' ₸';
+                    const isEdu = mapping[item.category] === 'education' || (item.category === 'Обучение' && !mapping[item.category]);
+                    const waText = encodeURIComponent(`Здравствуйте! Интересует ${item.title}`);
+                    const waNum = getWhatsApp();
+                    if (isEdu) {
+                        const imgHtml = item.picture ? `<div class="edu-img" style="width:100%; height:180px; margin-bottom:15px; border-radius:12px; overflow:hidden;"><img src="${item.picture}" style="width:100%; height:100%; object-fit:cover;"></div>` : '';
+                        return `
+                                <div class="edu-card">
+                                    <div class="edu-badge">Программа</div>
+                                    ${imgHtml}
+                                    <h3>${item.title}</h3>
+                                    <p>${item.description || ''}</p>
+                                    <a href="https://wa.me/${waNum}?text=${waText}" class="edu-btn">Подробнее</a>
+                                </div>`;
+                    } else {
+                        const imgHtml = item.picture ? `<div class="service-img" style="width:100%; height:160px; margin-bottom:15px; border-radius:10px; overflow:hidden;"><img src="${item.picture}" style="width:100%; height:100%; object-fit:cover;"></div>` : '';
+                        return `
+                                <div class="service-item">
+                                    ${imgHtml}
+                                    <h3>${item.title}</h3>
+                                    <p>${item.description || ''}</p>
+                                    <div class="service-price">${priceFormatted}</div>
+                                    <a href="https://wa.me/${waNum}?text=${waText}" class="btn-service">Записаться</a>
+                                </div>`;
+                    }
+                }).join('') : `<p style="text-align:center; color:var(--secondary); padding:30px;">Скоро появятся. Следите за обновлениями!</p>`}
+                    </div>
+                </div>`;
+            });
+            contentContainer.innerHTML = contentHtml;
+
+            // Update excluded categories for Shop
+            const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+            const menuCatsToExclude = siteCategories.filter(c => {
+                if (c === 'Все') return false;
+                const secId = mapping[c];
+                // ONLY exclude if explicitly mapped elsewhere and NOT to 'shop'
+                if (secId && secId !== 'shop') return true;
+                // Exclude if it's the primary category of a non-shop section and UNASSIGNED
+                if (!secId && sections.some(s => s && s.cat === c && s.id !== 'shop')) return true;
+                return false;
+            });
+
+            PRODUCT_CATEGORIES_EXCLUDE.length = 0;
+            PRODUCT_CATEGORIES_EXCLUDE.push(...menuCatsToExclude);
+            renderShopCategories();
+            renderProducts(); // Re-render shop with new exclusions
+        }
+
+        // Category exclusion list initialized at the top
+
+        function updateConfig() {
+            const stored = JSON.parse(localStorage.getItem('yan_config')) || {};
+            const config = {
+                whatsapp: stored.whatsapp || "77774558866",
+                gis_link: stored.gis_link || "https://2gis.kz/almaty/firm/70000001059683656",
+                address: stored.address || 'г. Алматы, ЖК "Акварель"',
+                hours: stored.hours || 'Ежедневно с 10:00 до 20:00',
+                org_name: stored.org_name || 'Yan Konstantinovich',
+                subtitle: stored.subtitle || 'Professional Cosmetologist | Rejuvi Plus Expert'
+            };
+
+            const gisLink = document.getElementById('gis-link-main');
+            if (gisLink) gisLink.href = config.gis_link;
+
+            const addressText = document.getElementById('gis-address-text');
+            if (addressText) addressText.textContent = config.address;
+
+            const hoursText = document.getElementById('gis-hours-text');
+            if (hoursText) hoursText.textContent = config.hours;
+
+            const logoSubtitle = document.getElementById('site-logo-subtitle');
+            if (logoSubtitle) logoSubtitle.textContent = config.subtitle;
+
+            const waLinkMain = document.getElementById('footer-wa-link');
+            if (waLinkMain) waLinkMain.href = `https://wa.me/${config.whatsapp}`;
+
+            const addressOrgName = document.getElementById('gis-org-name-text');
+            if (addressOrgName) addressOrgName.textContent = config.org_name;
+        }
+
+        function getWhatsApp() {
+            const stored = JSON.parse(localStorage.getItem('yan_config')) || {};
+            return stored.whatsapp || "77774558866";
+        }
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'yan_products') {
+                try {
+                    const parsed = JSON.parse(e.newValue);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        products = parsed;
+                        renderDynamicSections();
+                        renderProducts();
+                    }
+                } catch (err) { }
+            }
+            if (e.key === 'yan_reviews') {
+                loadReviews();
+                renderReviewsList();
+                renderReviewsSummary();
+            }
+            if (e.key === 'yan_categories' || e.key === 'yan_site_sections' || e.key === 'yan_cat_to_section') {
+                renderDynamicSections();
+                renderShopCategories();
+                renderProducts();
+            }
+            if (e.key === 'yan_config') {
+                updateConfig();
+                renderDynamicSections(); // WhatsApp number might have changed
+            }
+        });
+
+        // Initial render
+        updateConfig();
+        renderDynamicSections();
+        renderProducts();
+        updateCartBadge();
+
+        // ===== CART FUNCTIONS =====
+        function saveCart() {
+            localStorage.setItem('yan_cart', JSON.stringify(cart));
+        }
+
+        function addToCart(productId) {
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ id: productId, qty: 1 });
+            }
+            saveCart();
+            updateCartBadge();
+            const product = products.find(p => p.id === productId);
+            showToast(`✅ ${product.title} добавлен в корзину`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function changeQty(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) { removeFromCart(productId); return; } saveCart(); updateCartBadge(); renderCartItems();
+        }
+        function clearCart() {
+            cart = [];
+            saveCart();
+            updateCartBadge();
+            renderCartItems();
+            showToast('🗑️ Корзина очищена');
+        }
+
+        function getCartTotal() {
+            return cart.reduce((sum, item) => {
+                const product = products.find(p => p.id === item.id);
+                return sum + (product ? product.price * item.qty : 0);
+            }, 0);
+        }
+
+        function getCartCount() {
+            return cart.reduce((sum, item) => sum + item.qty, 0);
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            const count = getCartCount();
+            if (count > 0) {
+                badge.textContent = count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cart-items');
+            const footer = document.getElementById('cart-footer');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+        <div class="cart-empty">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+            </svg>
+            <p>Корзина пуста</p>
+        </div>
+        `;
+                footer.style.display = 'none';
+                return;
+            }
+
+            footer.style.display = 'block';
+            let html = '';
+            cart.forEach(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return;
+                html += `
+        <div class="cart-item">
+            <img src="${product.picture}" alt="${product.title}" class="cart-item-img">
+            <div class="cart-item-info">
+                <div class="cart-item-title">${product.title}</div>
+                <div class="cart-item-price">${formatPrice(product.price * item.qty)}</div>
+                <div class="cart-item-controls">
+                    <button class="cart-qty-btn" onclick="changeQty(${product.id}, -1)">−</button>
+                    <span class="cart-qty-value">${item.qty}</span>
+                    <button class="cart-qty-btn" onclick="changeQty(${product.id}, 1)">+</button>
+                </div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${product.id})">✖</button>
+        </div>
+        `;
+            });
+            container.innerHTML = html;
+
+            // Update total
+            document.getElementById('cart-total-value').textContent = formatPrice(getCartTotal());
+
+            // Update checkout link
+            updateCheckoutLink();
+        }
+
+        function updateCheckoutLink() {
+            const btn = document.getElementById('cart-checkout-btn');
+            const siteUrl = window.location.origin + window.location.pathname;
+            let lines = ['Здравствуйте! Я хочу заказать:\n'];
+            cart.forEach(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return;
+                lines.push(`• ${product.title}`);
+                lines.push(`  Кол-во: ${item.qty} шт.`);
+                lines.push(`  Цена: ${formatPrice(product.price * item.qty)}`);
+                lines.push(`  Ссылка: ${siteUrl}#product-${product.id}`);
+                lines.push('');
+            });
+            lines.push(`Итого: ${formatPrice(getCartTotal())}`);
+            const text = encodeURIComponent(lines.join('\n'));
+            btn.href = `https://wa.me/${getWhatsApp()}?text=${text}`;
+        }
+
+        // ===== CART OPEN/CLOSE =====
+        function openCart() {
+            renderCartItems();
+            document.getElementById('cart-overlay').classList.add('active');
+            document.getElementById('cart-sidebar').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            document.getElementById('cart-overlay').classList.remove('active');
+            document.getElementById('cart-sidebar').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ===== PRODUCT MODAL =====
+        function openModal(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            currentModalProductId = id;
+
+            document.getElementById('modal-img').src = product.picture;
+            document.getElementById('modal-title').textContent = product.title;
+            document.getElementById('modal-price').textContent = formatPrice(product.price);
+            document.getElementById('modal-desc').textContent = product.description || "Описание скоро появится...";
+
+            document.getElementById('product-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            currentModalProductId = null;
+        }
+
+        function addToCartFromModal() {
+            if (currentModalProductId) {
+                addToCart(currentModalProductId);
+                closeModal();
+            }
+        }
+
+        // Close modal on click outside
+        document.getElementById('product-modal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ===== RENDER PRODUCTS =====
+        function renderProducts(filterCategory = "Все") {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+
+            const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+            const sections = getSiteSections().filter(s => s.id !== 'shop');
+
+            // Exclude items from shop if their category belongs to a specialized section
+            let shopProducts = products.filter(p => {
+                const cat = String(p.category).trim();
+                const secId = mapping[cat];
+                if (secId && secId !== 'shop') return false; // Explicitly mapped elsewhere
+                if (!secId && sections.some(s => s.cat === cat)) return false; // Primary cat of another section
+                return true;
+            });
+
+            const currentFilterTrimmed = String(filterCategory).trim();
+            const filteredProducts = currentFilterTrimmed === "Все"
+                ? shopProducts
+                : shopProducts.filter(p => String(p.category).trim() === currentFilterTrimmed);
+
+            if (filteredProducts.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--secondary); padding: 20px;">В этой категории пока нет товаров.</p>';
+                return;
+            }
+
+            filteredProducts.forEach((product, index) => {
+                const delay = 0.1 + (index * 0.05);
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.animationDelay = delay + 's';
+                card.onclick = () => openModal(product.id);
+
+                card.innerHTML = `
+        <div class="product-img-wrapper">
+            <img src="${product.picture}" alt="${product.title}" class="product-img" loading="lazy"
+                onerror="if(this.src.endsWith('.webp')) this.src = this.src.replace('.webp', '.png');"
+                referrerpolicy="no-referrer">
+        </div>
+        <h3 class="product-title">${product.title}</h3>
+        ${product.description ? `<p class="product-desc">${product.description}</p>` : ''}
+        <div class="product-price-container">
+            <span class="product-price">${formatPrice(product.price)}</span>
+            ${product.price_compare ? `<span class="product-price-old">${formatPrice(product.price_compare)}</span>` :
+                        ''}
+        </div>
+        <button class="buy-btn" onclick="event.stopPropagation(); addToCart(${product.id});">В корзину</button>
+        `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // Duplicated block removed
+
+        // Deep linking: open modal if hash exists
+        function formatPrice(num) {
+            return new Intl.NumberFormat('ru-RU').format(num || 0) + ' ₸';
+        }
+
+        function checkHash() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#product-')) {
+                const id = parseInt(hash.replace('#product-', ''));
+                if (id) openModal(id);
+            }
+        }
+        window.addEventListener('hashchange', checkHash);
+        checkHash();
+
+        // ==================== REVIEWS ====================
+        let selectedStar = 0;
+        let reviews = [];
+
+        function loadReviews() {
+            try { reviews = JSON.parse(localStorage.getItem('yan_reviews')) || []; }
+            catch (e) { reviews = []; }
+        }
+
+        function saveReviews() {
+            localStorage.setItem('yan_reviews', JSON.stringify(reviews));
+        }
+
+        function compressImage(file, maxWidth = 600, quality = 0.7) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > height) {
+                            if (width > maxWidth) {
+                                height = Math.round((height * maxWidth) / width);
+                                width = maxWidth;
+                            }
+                        } else {
+                            if (height > maxWidth) {
+                                width = Math.round((width * maxWidth) / height);
+                                height = maxWidth;
+                            }
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        const dataUrl = canvas.toDataURL('image/webp', quality);
+                        resolve(dataUrl.length < event.target.result.length ? dataUrl : event.target.result);
+                    };
+                    img.onerror = reject;
+                };
+                reader.onerror = reject;
+            });
+        }
+
+        function pickStar(val) {
+            selectedStar = val;
+            document.querySelectorAll('.star-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i < val);
+                btn.textContent = i < val ? '★' : '☆';
+            });
+        }
+
+        let reviewPhotoData = null;
+
+        function previewReviewPhoto(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const originalFile = file;
+
+            showToast('🔄 Сжатие фото...');
+            compressImage(originalFile, 600, 0.7)
+                .then(compressed => {
+                    reviewPhotoData = compressed;
+                    const prev = document.getElementById('review-photo-preview');
+                    prev.innerHTML = `
+                        <div style="position:relative; display:inline-block;">
+                            <img src="${reviewPhotoData}" style="max-width:100%; max-height:160px; border-radius:10px; display:block;">
+                            <button onclick="removeReviewPhoto()" style="position:absolute; top:4px; right:4px; background:rgba(0,0,0,0.55); border:none; color:white; border-radius:50%; width:24px; height:24px; cursor:pointer; font-size:14px; line-height:1;">✕</button>
+                        </div>`;
+                })
+                .catch(err => {
+                    const reader = new FileReader();
+                    reader.onload = function (ev) {
+                        reviewPhotoData = ev.target.result;
+                        const prev = document.getElementById('review-photo-preview');
+                        prev.innerHTML = `
+                            <div style="position:relative; display:inline-block;">
+                                <img src="${reviewPhotoData}" style="max-width:100%; max-height:160px; border-radius:10px; display:block;">
+                                <button onclick="removeReviewPhoto()" style="position:absolute; top:4px; right:4px; background:rgba(0,0,0,0.55); border:none; color:white; border-radius:50%; width:24px; height:24px; cursor:pointer; font-size:14px; line-height:1;">✕</button>
+                            </div>`;
+                    };
+                    reader.readAsDataURL(originalFile);
+                });
+        }
+
+        function removeReviewPhoto() {
+            reviewPhotoData = null;
+            document.getElementById('review-photo-preview').innerHTML = '';
+            document.getElementById('review-photo-input').value = '';
+        }
+
+        function submitReview() {
+            const name = document.getElementById('review-name').value.trim();
+            const text = document.getElementById('review-text').value.trim();
+            const msg = document.getElementById('review-msg');
+
+            if (!name) { showMsg(msg, 'Пожалуйста, введите имя.'); return; }
+            if (!selectedStar) { showMsg(msg, 'Пожалуйста, выберите оценку (звёзды).'); return; }
+            if (!text) { showMsg(msg, 'Пожалуйста, напишите отзыв.'); return; }
+
+            loadReviews();
+            const review = {
+                id: Date.now(),
+                name,
+                rating: selectedStar,
+                text,
+                photo: reviewPhotoData || null,
+                date: new Date().toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' })
+            };
+            reviews.unshift(review);
+            try {
+                saveReviews();
+            } catch (e) {
+                showMsg(msg, '❌ Ошибка: памяти недостаточно для отзыва. Попробуйте без фото.', 'var(--price-color)');
+                return;
+            }
+
+            // Reset form
+            document.getElementById('review-name').value = '';
+            document.getElementById('review-text').value = '';
+            pickStar(0);
+            removeReviewPhoto();
+            msg.style.display = 'none';
+
+            renderReviewsList();
+            renderReviewsSummary();
+            showMsg(msg, '✅ Спасибо за ваш отзыв!', '#2cb462');
+        }
+
+        function showMsg(el, text, color = 'var(--price-color)') {
+            el.textContent = text;
+            el.style.color = color;
+            el.style.display = 'block';
+        }
+
+        function renderReviews() {
+            loadReviews();
+            renderReviewsSummary();
+            renderReviewsList();
+        }
+
+        function renderReviewsSummary() {
+            const el = document.getElementById('reviews-summary');
+            if (!el) return;
+            if (reviews.length === 0) {
+                el.innerHTML = '<p style="color:#aaa; font-size:14px;">Отзывов пока нет. Будьте первым!</p>';
+                return;
+            }
+            const avg = (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1);
+            const stars = '★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg));
+            el.innerHTML = `
+                <div class="reviews-avg">${avg}</div>
+                <div class="reviews-avg-stars">${stars}</div>
+                <div class="reviews-count">${reviews.length} отзыв${reviews.length === 1 ? '' : (reviews.length < 5 ? 'а' : 'ов')}</div>
+            `;
+        }
+
+        function renderReviewsList() {
+            const el = document.getElementById('reviews-list');
+            if (!el) return;
+            if (reviews.length === 0) { el.innerHTML = ''; return; }
+            el.innerHTML = reviews.map(r => {
+                const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+                const photoHtml = r.photo ? `<img src="${r.photo}" style="max-width:100%; max-height:200px; border-radius:10px; margin-top:8px; display:block;">` : '';
+                return `
+                    <div class="review-card">
+                        <div class="review-card-header">
+                            <span class="review-author">${escapeRev(r.name)}</span>
+                            <span class="review-date">${r.date}</span>
+                        </div>
+                        <div class="review-stars">${stars}</div>
+                        <div class="review-text">${escapeRev(r.text)}</div>
+                        ${photoHtml}
+                    </div>`;
+            }).join('');
+        }
+
+        function escapeRev(str) {
+            return String(str)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // Register reviews tab in nav tabs
+        (function addReviewsTab() {
+            const nav = document.getElementById('main-nav-tabs');
+            if (!nav) return;
+            if (!document.querySelector('[onclick*="reviews"]')) {
+                const btn = document.createElement('button');
+                btn.className = 'tab-btn';
+                btn.textContent = '★ Отзывы';
+                btn.setAttribute('onclick', "showSection('reviews')");
+                nav.appendChild(btn);
+            }
+        })();
+
+        // Override showSection to handle reviews
+        function showSectionReviews(id) {
+            document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const sec = document.getElementById('section-' + id);
+            if (sec) sec.style.display = 'block';
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
+            });
+            if (id === 'reviews') renderReviews();
+        }
+        window.showSection = showSectionReviews;
+
+        // Initial reviews load
+        loadReviews();
+    </script>
+</body>
+
+</html>

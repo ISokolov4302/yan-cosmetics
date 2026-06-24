@@ -1,0 +1,3023 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель | YAN Cosmetics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sidebar-bg: #1a1a2e;
+            --sidebar-hover: #16213e;
+            --sidebar-active: #0f3460;
+            --accent: #e94560;
+            --accent-light: #ff6b81;
+            --accent-gradient: linear-gradient(135deg, #e94560, #ff6b81);
+            --bg-main: #f0f2f8;
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.3);
+            --text-primary: #1a1a2e;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --success: #2ed573;
+            --warning: #ffa502;
+            --danger: #ff4757;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== LOGIN PAGE ==================== */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-page::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.15), transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+            animation: floatBlob 8s ease-in-out infinite;
+        }
+
+        .login-page::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 129, 0.1), transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            border-radius: 50%;
+            animation: floatBlob 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatBlob {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.05);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 48px 40px;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .login-logo .logo-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--accent-gradient);
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(233, 69, 96, 0.35);
+        }
+
+        .login-logo h1 {
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .login-logo p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            margin-top: 6px;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group .input-wrapper {
+            position: relative;
+        }
+
+        .form-group .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent);
+            background: rgba(233, 69, 96, 0.06);
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.15);
+        }
+
+        .form-group input:focus+i,
+        .form-group input:focus~i {
+            color: var(--accent);
+        }
+
+        .form-group .input-wrapper:has(input:focus) i {
+            color: var(--accent);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(233, 69, 96, 0.4);
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-error {
+            background: rgba(255, 71, 87, 0.12);
+            border: 1px solid rgba(255, 71, 87, 0.25);
+            color: #ff6b7a;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-8px);
+            }
+
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        .login-error.show {
+            display: flex;
+        }
+
+        /* ==================== ADMIN LAYOUT ==================== */
+        .admin-layout {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .admin-layout.active {
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar-header {
+            padding: 28px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .sidebar-brand .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .sidebar-brand .brand-text h2 {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .sidebar-brand .brand-text span {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 16px;
+        }
+
+        .nav-label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 4px;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 16px rgba(233, 69, 96, 0.3);
+        }
+
+        .nav-item i {
+            width: 20px;
+            font-size: 1.1em;
+            opacity: 0.7;
+        }
+
+        /* Menu actions and buttons visibility */
+        .menu-actions {
+            position: absolute;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 11px;
+            padding: 4px;
+            transition: all 0.2s ease;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-btn:hover {
+            color: #fff;
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .menu-btn.delete:hover {
+            color: #ff4d4f;
+        }
+
+        .nav-item .badge {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .nav-item.active .badge {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .sidebar-footer {
+            padding: 20px 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 16px;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            width: 100%;
+            font-family: 'Outfit', sans-serif;
+            text-align: left;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 71, 87, 0.1);
+            color: var(--danger);
+        }
+
+        .logout-btn i {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .topbar-title h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .topbar-title p {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .topbar-search {
+            position: relative;
+        }
+
+        .topbar-search input {
+            padding: 10px 16px 10px 42px;
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+            width: 260px;
+            transition: var(--transition);
+        }
+
+        .topbar-search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+            background: white;
+        }
+
+        .topbar-search input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .topbar-search i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: 28px 32px;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+
+        .stat-card:nth-child(1)::before {
+            background: var(--accent-gradient);
+        }
+
+        .stat-card:nth-child(2)::before {
+            background: linear-gradient(135deg, #2ed573, #7bed9f);
+        }
+
+        .stat-card:nth-child(3)::before {
+            background: linear-gradient(135deg, #ffa502, #ffc048);
+        }
+
+        .stat-card:nth-child(4)::before {
+            background: linear-gradient(135deg, #5352ed, #7c7cf8);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card:nth-child(1) .stat-icon {
+            background: rgba(233, 69, 96, 0.1);
+            color: var(--accent);
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            background: rgba(46, 213, 115, 0.1);
+            color: var(--success);
+        }
+
+        .stat-card:nth-child(3) .stat-icon {
+            background: rgba(255, 165, 2, 0.1);
+            color: var(--warning);
+        }
+
+        .stat-card:nth-child(4) .stat-icon {
+            background: rgba(83, 82, 237, 0.1);
+            color: #5352ed;
+        }
+
+        .stat-card .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 9px 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: white;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(233, 69, 96, 0.25);
+        }
+
+        .add-product-btn {
+            padding: 11px 24px;
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .add-product-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(233, 69, 96, 0.35);
+        }
+
+        .add-product-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(233, 69, 96, 0.15);
+        }
+
+        .product-card .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f8f9ff, #eef0f8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-card .card-image img {
+            max-width: 80%;
+            max-height: 85%;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .product-card .card-image .category-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 5px 12px;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(8px);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .product-card .card-image .discount-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 5px 10px;
+            background: var(--accent-gradient);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 8px;
+        }
+
+        .product-card .card-body {
+            padding: 20px;
+        }
+
+        .product-card .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .product-card .card-description {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .admin-star-btn {
+            background: none;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.15s, transform 0.1s;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .admin-star-btn.active {
+            color: #f5a623;
+        }
+
+        .product-card .card-price {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .product-card .card-price .current-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .product-card .card-price .old-price {
+            font-size: 15px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .product-card .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .product-card .card-actions button {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-edit {
+            background: rgba(83, 82, 237, 0.08);
+            border: 1px solid rgba(83, 82, 237, 0.15);
+            color: #5352ed;
+        }
+
+        .btn-edit:hover {
+            background: #5352ed;
+            color: white;
+            border-color: #5352ed;
+        }
+
+        .btn-delete {
+            background: rgba(255, 71, 87, 0.08);
+            border: 1px solid rgba(255, 71, 87, 0.15);
+            color: var(--danger);
+        }
+
+        .btn-delete:hover {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeOverlay 0.25s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeOverlay {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 580px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.2);
+            animation: slideModal 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideModal {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text-secondary);
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 28px;
+        }
+
+        .modal-body .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-body label {
+            display: block;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .modal-body input[type="text"],
+        .modal-body input[type="number"],
+        .modal-body input[type="url"],
+        .modal-body textarea,
+        .modal-body select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .modal-body input:focus,
+        .modal-body textarea:focus,
+        .modal-body select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+            background: white;
+        }
+
+        .modal-body textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .checkbox-group span {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 140px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8f9ff, #eef0f8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            overflow: hidden;
+            border: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        .image-preview img {
+            max-width: 80%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .image-preview .placeholder {
+            color: var(--text-muted);
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .image-preview .placeholder i {
+            font-size: 28px;
+            opacity: 0.4;
+        }
+
+        .modal-footer {
+            padding: 20px 28px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn-cancel {
+            padding: 11px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: white;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-save {
+            padding: 11px 32px;
+            border-radius: 12px;
+            border: none;
+            background: var(--accent-gradient);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-save:hover {
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* Delete Confirm Modal */
+        .delete-modal .modal {
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .delete-modal .modal-body {
+            padding: 32px 28px;
+        }
+
+        .delete-modal .delete-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 71, 87, 0.1);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--danger);
+            margin-bottom: 18px;
+        }
+
+        .delete-modal h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .delete-modal p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .delete-modal .modal-footer {
+            justify-content: center;
+            border-top: none;
+            padding-top: 4px;
+        }
+
+        .btn-delete-confirm {
+            padding: 11px 32px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #ff4757, #ff6b7a);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-delete-confirm:hover {
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 14px;
+            padding: 16px 22px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            animation: slideToast 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-left-color: var(--danger);
+        }
+
+        @keyframes slideToast {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toast i {
+            font-size: 20px;
+            color: var(--success);
+        }
+
+        .toast.error i {
+            color: var(--danger);
+        }
+
+        .toast span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 56px;
+            color: var(--text-muted);
+            opacity: 0.3;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .overlay-sidebar {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.4);
+                z-index: 99;
+            }
+
+            .overlay-sidebar.active {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 20px 16px;
+            }
+
+            .topbar {
+                padding: 14px 16px;
+            }
+
+            .topbar-search {
+                display: none;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .toolbar-left {
+                overflow-x: auto;
+                padding-bottom: 4px;
+            }
+
+            .filter-btn {
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-card {
+                padding: 36px 24px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .modal::-webkit-scrollbar {
+            width: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== LOGIN PAGE ==================== -->
+    <div class="login-page" id="loginPage">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-logo">
+                    <div class="logo-icon"><i class="fas fa-gem"></i></div>
+                    <h1>YAN Cosmetics</h1>
+                    <p>Панель управления</p>
+                </div>
+                <div class="login-error" id="loginError">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Неверный логин или пароль</span>
+                </div>
+                <form id="loginForm" onsubmit="return handleLogin(event)">
+                    <div class="form-group">
+                        <label>Логин</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="loginInput" placeholder="Введите логин" autocomplete="off" required>
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="passwordInput" placeholder="Введите пароль" required>
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="login-btn">
+                        <span>Войти в систему</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ADMIN LAYOUT ==================== -->
+    <div class="admin-layout" id="adminLayout">
+        <!-- Sidebar Overlay for Mobile -->
+        <div class="overlay-sidebar" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a class="sidebar-brand" href="#">
+                    <div class="brand-icon"><i class="fas fa-gem"></i></div>
+                    <div class="brand-text">
+                        <h2>YAN</h2>
+                        <span>Админ-панель</span>
+                    </div>
+                </a>
+                <a href="index.html"
+                    style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; margin: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; color: white; text-decoration: none; font-size: 13px; transition: 0.3s;"
+                    onmouseover="this.style.background='rgba(255,255,255,0.1)'"
+                    onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                    <i class="fas fa-external-link-alt" style="font-size: 12px; opacity: 0.7;"></i>
+                    <span>Перейти на сайт</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-label" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>Меню</span>
+                    <button onclick="addMenuSection()"
+                        style="background: none; border: none; color: var(--primary); cursor: pointer; font-size: 0.8em; opacity: 0.7; transition: opacity 0.3s;"
+                        onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7"
+                        title="Добавить новый раздел на сайт">
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
+                </div>
+                <div id="dynamic-menu-items">
+                    <!-- Dynamic menu sections from localStorage -->
+                </div>
+
+                <div class="nav-label" style="margin-top: 20px;">Категории каталога</div>
+                <div id="dynamic-sidebar-filters">
+                    <!-- Categories will be injected here -->
+                </div>
+
+                <div class="nav-label" style="margin-top: 20px;">Настройки</div>
+                <a class="nav-item" href="#" id="nav-reviews" onclick="showReviewsAdmin(); return false;">
+                    <i class="fas fa-star"></i>
+                    <span>Отзывы</span>
+                </a>
+                <a class="nav-item" href="#" id="nav-settings" onclick="showSettings(); return false;">
+                    <i class="fas fa-gear"></i>
+                    <span>Настройки сайта</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-right-from-bracket"></i>
+                    <span>Выйти из системы</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="topbar-title">
+                        <h2>Управление товарами</h2>
+                        <p id="currentDate"></p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div class="topbar-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Поиск товаров..." id="searchInput" oninput="handleSearch()">
+                    </div>
+                    <div class="user-avatar">YN</div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content-area">
+                <!-- Dashboard View -->
+                <div id="dashboard-view">
+                    <!-- Stats -->
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-box"></i></div>
+                            <div class="stat-value" id="statTotal">0</div>
+                            <div class="stat-label">Всего товаров</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-tags"></i></div>
+                            <div class="stat-value" id="statCategories">0</div>
+                            <div class="stat-label">Категорий</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-percent"></i></div>
+                            <div class="stat-value" id="statDiscounts">0</div>
+                            <div class="stat-label">Со скидкой</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-tenge-sign"></i></div>
+                            <div class="stat-value" id="statAvgPrice">0</div>
+                            <div class="stat-label">Средняя цена</div>
+                        </div>
+                    </div>
+
+                    <!-- Toolbar -->
+                    <div class="toolbar">
+                        <div class="toolbar-left" id="filterButtons" style="display:flex; flex-wrap:wrap; gap:8px;">
+                            <!-- Filters inserted by JS -->
+                        </div>
+                        <button class="add-product-btn" onclick="openAddModal()">
+                            <i class="fas fa-plus"></i> Добавить товар
+                        </button>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products inserted by JS -->
+                    </div>
+                </div>
+
+                <!-- Reviews Admin View -->
+                <style>
+                    #reviews-admin-view .stat-card::before {
+                        display: none !important;
+                    }
+
+                    #reviews-admin-view .stat-card {
+                        background: #fff !important;
+                        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
+                    }
+                </style>
+                <div id="reviews-admin-view" style="display:none; max-width:900px; margin:0 auto;">
+                    <div class="stat-card" style="padding:30px;">
+                        <h2 style="margin-bottom:20px; color:var(--text-primary);"><i class="fas fa-star"></i>
+                            Управление отзывами</h2>
+
+                        <!-- Add review form -->
+                        <div style="background:#f8f9fa; border-radius:14px; padding:20px; margin-bottom:24px;">
+                            <p style="font-weight:700; margin-bottom:14px; color:#333;">+ Добавить отзыв</p>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                                <input type="text" id="admin-rev-name" placeholder="Имя клиента" maxlength="60"
+                                    style="padding:10px 14px; border-radius:10px; border:1px solid #ddd; font-family:inherit; font-size:14px; color:#000;">
+                                <input type="text" id="admin-rev-date" placeholder="Дата (напр. 01.06.2025)"
+                                    style="padding:10px 14px; border-radius:10px; border:1px solid #ddd; font-family:inherit; font-size:14px; color:#000;">
+                            </div>
+                            <div style="display:flex; gap:6px; align-items:center; margin-bottom:12px;">
+                                <span style="font-size:13px; color:#555;">*Оценка:</span>
+                                <button class="admin-star-btn" onclick="adminPickStar(1)">☆</button>
+                                <button class="admin-star-btn" onclick="adminPickStar(2)">☆</button>
+                                <button class="admin-star-btn" onclick="adminPickStar(3)">☆</button>
+                                <button class="admin-star-btn" onclick="adminPickStar(4)">☆</button>
+                                <button class="admin-star-btn" onclick="adminPickStar(5)">☆</button>
+                            </div>
+                            <textarea id="admin-rev-text" placeholder="Текст отзыва..." rows="3" maxlength="500"
+                                style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid #ddd; font-family:inherit; font-size:14px; resize:none; margin-bottom:12px; color:#000;"></textarea>
+                            <div style="margin-bottom:12px;">
+                                <label for="admin-rev-photo"
+                                    style="display:inline-flex; align-items:center; gap:7px; padding:8px 14px; background:#fff; border:1px dashed #ccc; border-radius:10px; cursor:pointer; font-size:13px; color:#555;">
+                                    <i class="fas fa-image"></i> Прикрепить фото
+                                </label>
+                                <input type="file" id="admin-rev-photo" accept="image/*" style="display:none;"
+                                    onchange="adminPreviewPhoto(event)">
+                                <a href="#" onclick="adminRemovePhoto(); return false;" id="admin-rev-photo-clear"
+                                    style="display:none; margin-left:10px; font-size:12px; color:var(--danger);">✕
+                                    Убрать фото</a>
+                                <div id="admin-rev-photo-preview" style="margin-top:8px;"></div>
+                            </div>
+                            <button onclick="adminAddReview()" class="login-btn"
+                                style="padding:12px 24px; background:var(--accent-gradient); color:white; border:none; border-radius:10px; font-weight:700; cursor:pointer;">
+                                <i class="fas fa-plus"></i> Добавить
+                            </button>
+                        </div>
+
+                        <!-- Reviews list -->
+                        <div id="admin-reviews-list"></div>
+                    </div>
+                </div>
+
+                <!-- Settings View -->
+                <style>
+                    #settings-view .stat-card::before {
+                        display: none !important;
+                    }
+
+                    #settings-view .stat-card {
+                        background: #fff !important;
+                        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
+                        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+                    }
+                </style>
+                <div id="settings-view" style="display: none; max-width: 800px; margin: 0 auto; color: #333;">
+                    <div class="stat-card" style="padding: 30px;">
+                        <h2 style="margin-bottom: 25px; color: var(--text-primary);"><i class="fas fa-gear"></i>
+                            Настройки сайта</h2>
+
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Название
+                                организации</label>
+                            <input type="text" id="setting-org-name" placeholder="Yan Konstantinovich"
+                                style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #000;">
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Описание/Слоган</label>
+                            <input type="text" id="setting-org-subtitle" placeholder="Professional Cosmetologist"
+                                style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #000;">
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Адрес
+                                (текст)</label>
+                            <input type="text" id="setting-address" placeholder="г. Алматы, ЖК..."
+                                style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #000;">
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Режим
+                                работы</label>
+                            <input type="text" id="setting-hours" placeholder="Ежедневно с 10:00 до 20:00"
+                                style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #000;">
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Ссылка
+                                2GIS</label>
+                            <input type="text" id="setting-2gis" placeholder="https://2gis.kz/..."
+                                style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #000;">
+                            <p style="font-size: 11px; color: #666; margin-top: 8px;">
+                                <i class="fas fa-circle-info"></i> Эта ссылка будет использоваться во всех кнопках
+                                «Открыть в 2GIS» на сайте.
+                            </p>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">WhatsApp
+                                (без +, только цифры)</label>
+                            <input type="text" id="setting-whatsapp" placeholder="77774558866"
+                                style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: #fafafa; color: #000;">
+                            <p style="font-size: 11px; color: #666; margin-top: 8px;">
+                                <i class="fas fa-circle-info"></i> Этот номер будет использоваться во всех кнопках
+                                записи и в корзине.
+                            </p>
+                        </div>
+
+                        <div class="actions" style="display: flex; gap: 15px;">
+                            <button class="login-btn" onclick="saveSettings()"
+                                style="flex: 1; padding: 15px; background: var(--accent-gradient); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600;">
+                                <i class="fas fa-check"></i> Сохранить настройки
+                            </button>
+                            <button class="btn-cancel" onclick="showDashboard()"
+                                style="padding: 15px 25px; border-radius: 10px; border: 1px solid #ddd; background: #fff; color: #333;">
+                                Отмена
+                            </button>
+                        </div>
+                        <div class="stat-card" style="padding: 30px; margin-top: 25px;">
+                            <h2 style="margin-bottom: 20px; color: var(--text-primary); font-size: 1.2rem;"><i
+                                    class="fas fa-database"></i> Управление базой данных</h2>
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                                <p style="font-size: 14px; margin-bottom: 15px; color: #555;">
+                                    <b>Использование памяти (LocalStorage):</b>
+                                    <span id="storage-usage-text" style="float: right; font-weight: 700;">0%</span>
+                                </p>
+                                <div style="height: 10px; background: #eee; border-radius: 5px; overflow: hidden;">
+                                    <div id="storage-usage-bar"
+                                        style="height: 100%; width: 0%; background: var(--accent-gradient); transition: width 0.5s;">
+                                    </div>
+                                </div>
+                                <p style="font-size: 11px; color: #777; margin-top: 10px;">
+                                    Лимит браузера составляет около 5 МБ. Сжатие фото помогает экономить место.
+                                </p>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="clearAllData()"
+                                    style="padding: 10px 15px; background: #fff; border: 1px solid var(--danger); color: var(--danger); border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500;">
+                                    <i class="fas fa-trash-alt"></i> Сбросить все данные
+                                </button>
+                                <button onclick="window.location.reload()"
+                                    style="padding: 10px 15px; background: #fff; border: 1px solid #ddd; color: #555; border-radius: 8px; cursor: pointer; font-size: 13px;">
+                                    <i class="fas fa-sync"></i> Обновить страницу
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== EDIT/ADD MODAL ==================== -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Редактировать товар</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editProductId">
+
+                <div class="form-group">
+                    <label>Название товара</label>
+                    <input type="text" id="editTitle" placeholder="Введите название">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Цена (₸)</label>
+                        <input type="number" id="editPrice" placeholder="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Категория</label>
+                        <div style="display: flex; gap: 8px;">
+                            <select id="editCategory" style="flex: 1;">
+                                <!-- Dynamic Categories -->
+                            </select>
+                            <button type="button" class="btn-cancel" style="padding: 0 12px; margin:0;"
+                                onclick="addNewCategory()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-group" for="editHasDiscount">
+                        <input type="checkbox" id="editHasDiscount" onchange="toggleOldPriceField()">
+                        <span>Показать старую цену (скидка)</span>
+                    </label>
+                </div>
+
+                <div class="form-group" id="oldPriceGroup" style="display: none;">
+                    <label>Старая цена (₸)</label>
+                    <input type="number" id="editOldPrice" placeholder="0" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="editDescription" placeholder="Введите описание товара"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Изображение товара</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" id="editImage" placeholder="./images/image.png"
+                            oninput="updateImagePreview()" style="flex: 1; margin-bottom: 0;">
+                        <button type="button" class="btn-cancel"
+                            style="padding: 12px 16px; border-radius: 12px; margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px; flex-shrink: 0;"
+                            onclick="document.getElementById('editImageFile').click()">
+                            <i class="fas fa-file-image"></i> Выбрать файл
+                        </button>
+                    </div>
+                    <input type="file" id="editImageFile" accept="image/png, image/jpeg, image/webp"
+                        style="display: none;" onchange="handleImageFileSelect(event)">
+                    <div class="image-preview" id="imagePreview">
+                        <div class="placeholder">
+                            <i class="fas fa-image"></i>
+                            <span>Предпросмотр изображения</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal()">Отмена</button>
+                <button class="btn-save" onclick="saveProduct()">
+                    <i class="fas fa-check"></i> Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DELETE CONFIRM MODAL ==================== -->
+    <div class="modal-overlay delete-modal" id="deleteModal">
+        <div class="modal">
+            <div class="modal-body">
+                <div class="delete-icon">
+                    <i class="fas fa-trash-can"></i>
+                </div>
+                <h3>Удалить товар?</h3>
+                <p id="deleteProductName">Вы действительно хотите удалить этот товар? Это действие необратимо.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeDeleteModal()">Отмена</button>
+                <button class="btn-delete-confirm" onclick="confirmDelete()">
+                    <i class="fas fa-trash-can"></i> Удалить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ==================== DEFAULT DATA ====================
+        // ==================== DEFAULT DATA ====================
+        const DEFAULT_CATEGORIES = ["Все", "AHA кислоты", "ANTI-Акне", "Rejuvi Plus", "Увлажнение", "Омоложение", "Очищение", "Уход за телом", "Чистки лица", "Обучение"];
+        let categories = [];
+        try {
+            categories = JSON.parse(localStorage.getItem('yan_categories')) || [...DEFAULT_CATEGORIES];
+            if (!Array.isArray(categories)) categories = [...DEFAULT_CATEGORIES];
+        } catch (e) {
+            categories = [...DEFAULT_CATEGORIES];
+        }
+
+        const defaultProducts = [
+            { id: 1, category: "Омоложение", title: "Набор Rejuvi ANTI AGE", price: 85000, price_compare: null, picture: "./images/anti-age.webp", description: "Полный комплексный антивозрастной уход: очищение, увлажнение, сыворотки с витамином С и ночные кремы для интенсивного омоложения и подтяжки кожи." },
+            { id: 2, category: "Увлажнение", title: "Rejuvi Hyaluronic Acid Serum", price: 29000, price_compare: 35000, picture: "./images/hyaluronic-acid-serum.webp", description: "Концентрированная сыворотка с гиалуроновой кислотой. Глубокое увлажнение и удержание влаги. Подходит в том числе для микронидлинга." },
+            { id: 3, category: "Увлажнение", title: "Foot Repair Cream", price: 15900, price_compare: 18000, picture: "./images/foot-repair-cream-.webp", description: "Интенсивный восстанавливающий крем для ног. Смягчает, питает и заживляет сухую и потрескавшуюся кожу стоп." },
+            { id: 4, category: "Очищение", title: "Purifying Mask", price: 18900, price_compare: 21900, picture: "./images/purifying-mask-.webp", description: "Эффективная очищающая маска для лица. Глубоко очищает поры, удаляет загрязнения и излишки себума, матирует кожу." },
+            { id: 5, category: "Омоложение", title: "Bio-Firming Gel", price: 29000, price_compare: 34000, picture: "./images/Bio - Firming Gel.webp", description: "Укрепляющий био-гель. Обеспечивает мощный лифтинг-эффект, повышает упругость и эластичность кожи." }
+        ];
+
+        let products = [];
+        const CORRECT_LOGIN = "admin_yan";
+        const CORRECT_PASSWORD = "yan_konstantinovich8866";
+
+        let currentFilter = "Все";
+        let searchQuery = "";
+        let deleteTargetId = null;
+
+        const DEFAULT_MENU = [
+            { id: 'education', title: 'Обучение', cat: 'Обучение', icon: 'fas fa-graduation-cap' }
+        ];
+
+        function getSiteSections() {
+            try {
+                let sections = JSON.parse(localStorage.getItem('yan_site_sections'));
+                if (!Array.isArray(sections)) return [...DEFAULT_MENU];
+                return sections.filter(s => s && typeof s === 'object' && s.id);
+            } catch (e) {
+                return [...DEFAULT_MENU];
+            }
+        }
+        let siteSections = getSiteSections();
+
+        const DEFAULT_CONFIG = {
+            whatsapp: "77774558866",
+            gis_link: "https://2gis.kz/almaty/firm/70000001059683656",
+            address: 'г. Алматы, ЖК "Акварель"',
+            hours: 'Ежедневно с 10:00 до 20:00',
+            org_name: 'Yan Konstantinovich',
+            subtitle: 'Professional Cosmetologist | Rejuvi Plus Expert'
+        };
+        let siteConfig = JSON.parse(localStorage.getItem('yan_config')) || { ...DEFAULT_CONFIG };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setCurrentDate();
+            checkSession();
+            initProducts();
+            migrateCategoriesToSections();
+            renderFilters();
+            renderProducts();
+            updateStats();
+        });
+
+        function migrateCategoriesToSections() {
+            // Robust check for siteSections
+            if (!Array.isArray(siteSections)) {
+                siteSections = getSiteSections();
+            }
+
+            // Ensure 'shop' exists in siteSections and has the correct title
+            const shopSection = siteSections.find(s => s && s.id === 'shop');
+            if (!shopSection) {
+                siteSections.unshift({ id: 'shop', title: 'Каталог', cat: 'Все', icon: 'fas fa-boxes-stacked', isFixed: true });
+                localStorage.setItem('yan_site_sections', JSON.stringify(siteSections));
+            } else if (shopSection.title === 'Товары') {
+                shopSection.title = 'Каталог';
+                localStorage.setItem('yan_site_sections', JSON.stringify(siteSections));
+            }
+
+            const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+            const menuCats = siteSections.map(s => ({ id: s ? s.id : '', cat: s ? s.cat : '' }));
+
+            categories.forEach(cat => {
+                if (cat === 'Все') {
+                    mapping[cat] = 'shop';
+                    return;
+                }
+                const currentMap = mapping[cat];
+                if (!currentMap || currentMap === 'shop') {
+                    const foundSec = menuCats.find(m => m.cat === cat);
+                    if (foundSec) {
+                        mapping[cat] = foundSec.id;
+                    } else {
+                        mapping[cat] = 'shop';
+                    }
+                }
+            });
+            localStorage.setItem('yan_cat_to_section', JSON.stringify(mapping));
+        }
+
+        function setCurrentDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('ru-RU', options);
+            document.getElementById('currentDate').textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+        }
+
+        function checkSession() {
+            const session = localStorage.getItem('yan_admin_session');
+            if (session === 'active') {
+                showAdmin();
+            }
+        }
+
+        function initProducts() {
+            updateStorageUsage();
+            const storedProducts = localStorage.getItem('yan_products');
+            if (storedProducts) {
+                try {
+                    const parsed = JSON.parse(storedProducts);
+                    if (Array.isArray(parsed)) {
+                        products = parsed.filter(p => p && typeof p === 'object' && p.id);
+                    } else {
+                        products = [...defaultProducts];
+                    }
+                } catch (e) {
+                    console.error("Init products error:", e);
+                    products = [...defaultProducts];
+                }
+            } else {
+                products = [...defaultProducts];
+            }
+            saveToStorage();
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem('yan_products', JSON.stringify(products));
+                localStorage.setItem('yan_categories', JSON.stringify(categories));
+                updateStorageUsage();
+            } catch (e) {
+                if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                    showToast('Ошибка: памяти недостаточно. Пожалуйста, сожмите фото или удалите лишние товары в Настройках.', true);
+                } else {
+                    console.error("Save storage error:", e);
+                }
+            }
+        }
+
+        // ==================== IMAGE COMPRESSION ====================
+        function compressImage(file, maxWidth = 800, quality = 0.7) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > maxWidth) {
+                                height = Math.round((height * maxWidth) / width);
+                                width = maxWidth;
+                            }
+                        } else {
+                            if (height > maxWidth) {
+                                width = Math.round((width * maxWidth) / height);
+                                height = maxWidth;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Try webp first, then jpeg
+                        const dataUrl = canvas.toDataURL('image/webp', quality);
+                        resolve(dataUrl.length < event.target.result.length ? dataUrl : event.target.result);
+                    };
+                    img.onerror = reject;
+                };
+                reader.onerror = reject;
+            });
+        }
+
+        function updateStorageUsage() {
+            let total = 0;
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key)) {
+                    total += (localStorage[key].length + key.length) * 2; // approximation in bytes
+                }
+            }
+            const mb = (total / 1024 / 1024).toFixed(2);
+            const percent = Math.min(Math.round((total / (5 * 1024 * 1024)) * 100), 100);
+
+            const bar = document.getElementById('storage-usage-bar');
+            const text = document.getElementById('storage-usage-text');
+            if (bar && text) {
+                bar.style.width = percent + '%';
+                text.textContent = `${percent}% (${mb} MB / 5 MB)`;
+                if (percent > 90) bar.style.background = 'var(--danger)';
+                else if (percent > 70) bar.style.background = 'var(--warning)';
+                else bar.style.background = 'var(--accent-gradient)';
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('ВНИМАНИЕ! Это действие удалит все ваши товары, настройки и разделы, которые вы добавили. Сайт вернется к стандартному виду. Продолжить?')) {
+                localStorage.clear();
+                alert('Данные удалены. Страница будет перезагружена.');
+                window.location.reload();
+            }
+        }
+
+        function addNewCategory() {
+            const name = prompt('Введите название новой категории:');
+            if (name && name.trim()) {
+                const cleanName = name.trim();
+
+                // Ask for section
+                let sectionsList = siteSections.map((s, i) => `${i + 1}. ${s.title}`).join('\n');
+                let sectionChoice = prompt(`К какому разделу отнести эту категорию?\n0. Товары (по умолчанию)\n${sectionsList}`, "0");
+
+                let sectionId = 'shop'; // Default
+                if (sectionChoice && sectionChoice !== "0") {
+                    const idx = parseInt(sectionChoice) - 1;
+                    if (siteSections[idx]) {
+                        sectionId = siteSections[idx].id;
+                    }
+                }
+
+                if (!categories.includes(cleanName)) {
+                    categories.push(cleanName);
+
+                    const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+                    mapping[cleanName] = sectionId;
+                    localStorage.setItem('yan_cat_to_section', JSON.stringify(mapping));
+
+                    saveToStorage();
+                    renderFilters();
+                    renderProducts(); // Refresh grid to respect new mapping/exclusion
+
+                    // If in modal, refresh the dropdown and select the new category
+                    const select = document.getElementById('editCategory');
+                    if (select) {
+                        setupCategorySelect();
+                        select.value = cleanName;
+                    }
+
+                    showToast(`Категория «${cleanName}» добавлена в раздел «${sectionId === 'shop' ? 'Товары' : siteSections.find(s => s.id === sectionId).title}»`);
+                }
+            }
+        }
+
+        // ==================== AUTH ====================
+        function handleLogin(e) {
+            e.preventDefault();
+            const login = document.getElementById('loginInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+
+            if (login === CORRECT_LOGIN && password === CORRECT_PASSWORD) {
+                localStorage.setItem('yan_admin_session', 'active');
+                document.getElementById('loginError').classList.remove('show');
+                showAdmin();
+            } else {
+                document.getElementById('loginError').classList.add('show');
+            }
+            return false;
+        }
+
+        function showAdmin() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminLayout').classList.add('active');
+            renderProducts();
+            updateStats();
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('yan_admin_session');
+            document.getElementById('adminLayout').classList.remove('active');
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('loginInput').value = '';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('loginError').classList.remove('show');
+        }
+
+        // ==================== SIDEBAR ====================
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+        }
+
+        // ==================== FILTERS ====================
+        function renderFilters() {
+            try {
+                // Update active states
+                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+                // Render dynamic menu items (Sections with their categories)
+                const menuContainer = document.getElementById('dynamic-menu-items');
+                if (menuContainer) {
+                    // Ensure 'shop' is treated as a section
+                    let rawSections = Array.isArray(siteSections) ? siteSections : getSiteSections();
+                    const effectiveSections = rawSections.filter(s => s && typeof s === 'object');
+
+                    if (!effectiveSections.find(s => s.id === 'shop')) {
+                        effectiveSections.unshift({ id: 'shop', title: 'Каталог', cat: 'Все', icon: 'fas fa-boxes-stacked', isFixed: true });
+                    }
+
+                    const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+                    const menuHtml = effectiveSections.map((section, idx) => {
+                        const sectionCats = categories.filter(c => {
+                            return mapping[c] === section.id || (section.cat === c && !mapping[c]);
+                        });
+
+                        const isSectionActive = currentFilter === ('section:' + section.id) || sectionCats.includes(currentFilter);
+                        const isProtected = section.id === 'shop';
+
+                        return `
+                        <div class="menu-section-group" style="margin-bottom: 5px;">
+                            <div style="display:flex; align-items:center; position:relative;" class="menu-item-row">
+                                <a class="nav-item ${isSectionActive ? 'active' : ''}" href="#" onclick="filterBySection('${section.id}'); return false;" style="flex:1; padding-right: 80px;">
+                                    <i class="${section.icon || 'fas fa-star'}"></i>
+                                    <span>${section.title}</span>
+                                    ${section.id === 'shop' ? `<span class="badge">${products.length}</span>` : ''}
+                                </a>
+                                <div class="menu-actions">
+                                    <button class="menu-btn" onclick="renameMenuSection('${section.id}')" title="Переименовать раздел">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="menu-btn" onclick="moveMenuSection('${section.id}', -1)" style="${idx === 0 ? 'visibility:hidden' : ''}" title="Вверх">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                    <button class="menu-btn" onclick="moveMenuSection('${section.id}', 1)" style="${idx === effectiveSections.length - 1 ? 'visibility:hidden' : ''}" title="Вниз">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </button>
+                                    ${!isProtected ? `
+                                    <button class="menu-btn delete" onclick="confirmDeleteMenuSection('${section.id}')" title="Удалить раздел">
+                                        <i class="fas fa-times"></i>
+                                    </button>` : ''}
+                                </div>
+                            </div>
+                            <div class="section-categories" style="padding-left: 20px; ${isSectionActive ? '' : 'display:none;'}">
+                                ${sectionCats.map(cat => `
+                                    <div style="display:flex; align-items:center; position:relative;">
+                                        <a class="nav-item ${currentFilter === cat ? 'active' : ''}" href="#" onclick="filterByCategory('${cat}'); return false;" style="font-size: 0.85em; padding: 8px 16px; flex:1; background: transparent !important; box-shadow: none !important;">
+                                            <i class="fas fa-chevron-right" style="font-size: 0.7em; opacity: 0.4;"></i>
+                                            <span>${cat}</span>
+                                        </a>
+                                        <button class="menu-btn delete" onclick="confirmDeleteCategory('${cat}')" style="position:absolute; right:10px; padding:5px; font-size:9px;" title="Удалить категорию">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>`;
+                    }).join('');
+                    menuContainer.innerHTML = menuHtml;
+                }
+
+                // Hide redundant sections
+                const labels = document.querySelectorAll('.nav-label');
+                labels.forEach(l => {
+                    if (l.textContent.includes('Категории каталога')) l.style.display = 'none';
+                });
+                const dynamicContainer = document.getElementById('dynamic-sidebar-filters');
+                if (dynamicContainer) dynamicContainer.style.display = 'none';
+
+                // Ensure mapping is consistent
+                const finalMapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+                const menuCats = Array.isArray(siteSections) ? siteSections.map(s => s ? s.cat : '') : [];
+                if (Array.isArray(categories)) {
+                    categories.forEach(cat => {
+                        if (cat !== 'Все' && !finalMapping[cat] && !menuCats.includes(cat)) {
+                            finalMapping[cat] = 'shop';
+                        }
+                    });
+                    localStorage.setItem('yan_cat_to_section', JSON.stringify(finalMapping));
+                }
+
+                // Update filters
+                renderTopFilters();
+
+            } catch (err) {
+                console.error("Error in renderFilters:", err);
+            }
+        }
+
+        function renderTopFilters() {
+            const topFilterContainer = document.getElementById('filterButtons');
+            if (!topFilterContainer) return;
+
+            const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+            let visibleCats = categories;
+            let activeSectionId = null;
+
+            if (currentFilter.startsWith('section:')) {
+                activeSectionId = currentFilter.replace('section:', '');
+            } else if (currentFilter !== 'Все') {
+                activeSectionId = mapping[currentFilter];
+                if (!activeSectionId) {
+                    const s = siteSections.find(s => s.cat === currentFilter);
+                    if (s) activeSectionId = s.id;
+                }
+            }
+
+            if (activeSectionId) {
+                if (activeSectionId === 'shop') {
+                    visibleCats = categories.filter(c => mapping[c] === 'shop' || (!mapping[c] && !siteSections.find(s => s.cat === c)));
+                } else {
+                    const section = siteSections.find(s => s.id === activeSectionId);
+                    visibleCats = categories.filter(c => mapping[c] === activeSectionId || (section && section.cat === c));
+                }
+                if (!visibleCats.includes('Все')) visibleCats.unshift('Все');
+            }
+
+            topFilterContainer.innerHTML = visibleCats.map(cat => {
+                const isProtected = (cat === 'Все');
+                return `
+                <div class="filter-tab-wrapper" style="position:relative; display:inline-block;">
+                    <button class="filter-btn ${currentFilter === cat ? 'active' : ''}" onclick="filterByCategory('${cat}')">
+                        ${cat === 'Все' ? 'Все' : cat}
+                    </button>
+                    ${!isProtected ? `<button onclick="event.stopPropagation(); confirmDeleteCategory('${cat}')" style="position:absolute; top:-5px; right:-5px; background:#ff4757; color:white; border:none; width:18px; height:18px; border-radius:50%; font-size:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2);">×</button>` : ''}
+                </div>`;
+            }).join('');
+        }
+
+
+
+        function filterBySection(sectionId) {
+            showDashboard();
+            currentFilter = 'section:' + sectionId;
+            renderFilters();
+            renderProducts();
+            closeSidebar();
+        }
+
+        function filterByCategory(category) {
+            showDashboard();
+            currentFilter = category;
+            renderFilters();
+            renderProducts();
+            closeSidebar();
+        }
+
+        function addMenuSection() {
+            const title = prompt('Введите название раздела (как он будет на кнопке на сайте):');
+            if (!title) return;
+
+            const id = 'sec_' + Date.now();
+            const catName = title.trim(); // Default primary category
+
+            const newSection = {
+                id: id,
+                title: title.trim(),
+                cat: catName,
+                icon: 'fas fa-star'
+            };
+
+            siteSections.push(newSection);
+            if (catName !== 'Все' && !categories.includes(catName)) {
+                categories.push(catName);
+                const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+                mapping[catName] = id;
+                localStorage.setItem('yan_cat_to_section', JSON.stringify(mapping));
+                localStorage.setItem('yan_categories', JSON.stringify(categories)); // Sync categories too
+            }
+
+            localStorage.setItem('yan_site_sections', JSON.stringify(siteSections));
+            saveToStorage();
+            renderFilters();
+            renderProducts();
+            setupCategorySelect(); // Update modal dropdown if open
+            showToast('Раздел добавлен на сайт');
+        }
+
+        function moveMenuSection(id, direction) {
+            const index = siteSections.findIndex(s => s.id === id);
+            if (index === -1) return;
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= siteSections.length) return;
+
+            const temp = siteSections[index];
+            siteSections[index] = siteSections[newIndex];
+            siteSections[newIndex] = temp;
+
+            localStorage.setItem('yan_site_sections', JSON.stringify(siteSections));
+            renderFilters();
+        }
+
+        function renameMenuSection(id) {
+            const section = siteSections.find(s => s.id === id);
+            if (!section) return;
+
+            const newTitle = prompt('Введите новое название для раздела:', section.title);
+            if (newTitle && newTitle.trim()) {
+                section.title = newTitle.trim();
+                localStorage.setItem('yan_site_sections', JSON.stringify(siteSections));
+                renderFilters();
+                showToast('Раздел переименован');
+            }
+        }
+
+        function confirmDeleteMenuSection(id) {
+            const section = siteSections.find(s => s.id === id);
+            if (!section) return;
+
+            if (confirm(`Удалить раздел «${section.title}» с сайта? Категория «${section.cat}» останется в списке товаров.`)) {
+                siteSections = siteSections.filter(s => s.id !== id);
+                localStorage.setItem('yan_site_sections', JSON.stringify(siteSections));
+                renderFilters();
+                showToast('Раздел удален с сайта');
+            }
+        }
+
+        function confirmDeleteCategory(catName) {
+            if (catName === 'Все') return;
+            if (confirm(`Вы действительно хотите удалить категорию «${catName}»? Косметика в этой категории НЕ удалится, но потеряет принадлежность к ней.`)) {
+                categories = categories.filter(c => c !== catName);
+                if (currentFilter === catName) currentFilter = 'Все';
+                saveToStorage();
+                renderFilters();
+                renderProducts();
+                showToast('Категория удалена');
+            }
+        }
+
+        // ==================== SETTINGS ====================
+        function saveSettings() {
+            const gisLink = document.getElementById('setting-2gis').value;
+            const address = document.getElementById('setting-address').value;
+            const hours = document.getElementById('setting-hours').value;
+            const orgName = document.getElementById('setting-org-name').value;
+            const subtitle = document.getElementById('setting-org-subtitle').value;
+            const whatsapp = document.getElementById('setting-whatsapp').value.trim().replace('+', '');
+
+            const config = {
+                gis_link: gisLink,
+                address: address,
+                hours: hours,
+                org_name: orgName,
+                subtitle: subtitle,
+                whatsapp: whatsapp
+            };
+            localStorage.setItem('yan_config', JSON.stringify(config));
+            showToast('Настройки сохранены');
+            showDashboard();
+        }
+
+        function showSettings() {
+            const stored = JSON.parse(localStorage.getItem('yan_config')) || {};
+            const config = {
+                whatsapp: stored.whatsapp || "77774558866",
+                gis_link: stored.gis_link || "https://2gis.kz/almaty/firm/70000001059683656",
+                address: stored.address || 'г. Алматы, ЖК "Акварель"',
+                hours: stored.hours || 'Ежедневно с 10:00 до 20:00',
+                org_name: stored.org_name || 'Yan Konstantinovich',
+                subtitle: stored.subtitle || 'Professional Cosmetologist | Rejuvi Plus Expert'
+            };
+
+            document.getElementById('setting-2gis').value = config.gis_link;
+            document.getElementById('setting-address').value = config.address;
+            document.getElementById('setting-hours').value = config.hours;
+            document.getElementById('setting-org-name').value = config.org_name;
+            document.getElementById('setting-org-subtitle').value = config.subtitle;
+            document.getElementById('setting-whatsapp').value = config.whatsapp;
+
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('settings-view').style.display = 'block';
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('nav-settings').classList.add('active');
+            closeSidebar();
+        }
+
+        function showDashboard() {
+            document.getElementById('dashboard-view').style.display = 'block';
+            document.getElementById('settings-view').style.display = 'none';
+            const rv = document.getElementById('reviews-admin-view');
+            if (rv) rv.style.display = 'none';
+            document.getElementById('nav-settings').classList.remove('active');
+            const nr = document.getElementById('nav-reviews');
+            if (nr) nr.classList.remove('active');
+            renderFilters(); // Restore sidebar highlighting
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            renderProducts();
+        }
+
+        // ==================== RENDER PRODUCTS ====================
+        function getFilteredProducts() {
+            let filtered = [...products];
+            const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+            const allSections = Array.isArray(siteSections) ? siteSections : getSiteSections();
+
+            if (currentFilter !== 'Все') {
+                if (currentFilter.startsWith('section:')) {
+                    const sectionId = currentFilter.replace('section:', '');
+                    const section = allSections.find(s => s && s.id === sectionId);
+
+                    filtered = filtered.filter(p => {
+                        const catSection = mapping[p.category];
+                        if (sectionId === 'shop') {
+                            if (catSection === 'shop') return true;
+                            if (!catSection) {
+                                if (allSections.filter(s => s && s.id !== 'shop').some(s => s.cat === p.category)) return false;
+                                return true;
+                            }
+                            return false;
+                        }
+                        return catSection === sectionId || (section && section.cat === p.category && !catSection);
+                    });
+                } else {
+                    filtered = filtered.filter(p => p.category === currentFilter);
+                }
+            } else {
+                // If filter is 'Все' but we came from a section, we still need to respect shop vs items
+                // Actually, in current UI, 'Все' at the top usually means all items of the ACTIVE section.
+                // But globally 'Все' (initial state) shows everything.
+                // Let's improve Catalog view to ALWAYS exclude items that are mapped elsewhere.
+                filtered = filtered.filter(p => {
+                    const secId = mapping[p.category];
+                    if (secId && secId !== 'shop') return false;
+                    if (!secId && allSections.filter(s => s && s.id !== 'shop').some(s => s.cat === p.category)) return false;
+                    return true;
+                });
+            }
+
+            if (searchQuery) {
+                filtered = filtered.filter(p =>
+                    p.title.toLowerCase().includes(searchQuery) ||
+                    p.description.toLowerCase().includes(searchQuery) ||
+                    p.category.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            return filtered;
+        }
+
+        function formatPrice(price) {
+            return new Intl.NumberFormat('ru-RU').format(price) + ' ₸';
+        }
+
+        function getDiscountPercent(price, oldPrice) {
+            if (!oldPrice || oldPrice <= price) return 0;
+            return Math.round(((oldPrice - price) / oldPrice) * 100);
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const filtered = getFilteredProducts();
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <h3>Товары не найдены</h3>
+                        <p>Попробуйте изменить фильтр или поисковый запрос</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(product => {
+                const hasDiscount = product.price_compare && product.price_compare > product.price;
+                const discountPercent = hasDiscount ? getDiscountPercent(product.price, product.price_compare) : 0;
+
+                return `
+                    <div class="product-card">
+                        <div class="card-image">
+                            <img src="${escapeHtml(product.picture)}" alt="${escapeHtml(product.title)}" onerror="this.style.display='none'">
+                            <span class="category-badge">${escapeHtml(product.category)}</span>
+                            ${hasDiscount ? `<span class="discount-badge">-${discountPercent}%</span>` : ''}
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">${escapeHtml(product.title)}</div>
+                            <div class="card-description">${escapeHtml(product.description)}</div>
+                            <div class="card-price">
+                                <span class="current-price">${formatPrice(product.price)}</span>
+                                ${hasDiscount ? `<span class="old-price">${formatPrice(product.price_compare)}</span>` : ''}
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-edit" onclick="openEditModal(${product.id})">
+                                    <i class="fas fa-pen"></i> Изменить
+                                </button>
+                                <button class="btn-delete" onclick="openDeleteModal(${product.id})">
+                                    <i class="fas fa-trash-can"></i> Удалить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== STATS ====================
+        function updateStats() {
+            const validProducts = Array.isArray(products) ? products.filter(p => p && typeof p === 'object') : [];
+            document.getElementById('statTotal').textContent = validProducts.length;
+
+            const uniqueCats = new Set(validProducts.map(p => p.category).filter(Boolean));
+            document.getElementById('statCategories').textContent = uniqueCats.size;
+
+            const discounted = validProducts.filter(p => p.price_compare && p.price_compare > p.price).length;
+            document.getElementById('statDiscounts').textContent = discounted;
+
+            const avg = validProducts.length > 0
+                ? Math.round(validProducts.reduce((sum, p) => sum + (Number(p.price) || 0), 0) / validProducts.length)
+                : 0;
+            document.getElementById('statAvgPrice').textContent = new Intl.NumberFormat('ru-RU').format(avg);
+        }
+
+        // ==================== MODAL: ADD / EDIT ====================
+        function setupCategorySelect() {
+            const select = document.getElementById('editCategory');
+            if (select) {
+                // Return categories except "Все" for selection
+                select.innerHTML = categories.filter(c => c !== 'Все').map(cat =>
+                    `<option value="${cat}">${cat}</option>`
+                ).join('');
+            }
+        }
+
+        function openAddModal() {
+            setupCategorySelect();
+            document.getElementById('modalTitle').textContent = 'Добавить товар';
+            document.getElementById('editProductId').value = '';
+            document.getElementById('editTitle').value = '';
+            document.getElementById('editPrice').value = '';
+            document.getElementById('editOldPrice').value = '';
+
+            // Set first available category as default
+            const firstCat = categories.find(c => c !== 'Все') || 'Все';
+            document.getElementById('editCategory').value = firstCat;
+
+            document.getElementById('editDescription').value = '';
+            document.getElementById('editImage').value = '';
+            document.getElementById('editHasDiscount').checked = false;
+            document.getElementById('oldPriceGroup').style.display = 'none';
+            resetImagePreview();
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function openEditModal(id) {
+            setupCategorySelect();
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('modalTitle').textContent = 'Редактировать товар';
+            document.getElementById('editProductId').value = product.id;
+            document.getElementById('editTitle').value = product.title;
+            document.getElementById('editPrice').value = product.price;
+            document.getElementById('editCategory').value = product.category;
+            document.getElementById('editDescription').value = product.description;
+            document.getElementById('editImage').value = product.picture;
+
+            const hasDiscount = product.price_compare && product.price_compare > 0;
+            document.getElementById('editHasDiscount').checked = hasDiscount;
+            document.getElementById('oldPriceGroup').style.display = hasDiscount ? 'block' : 'none';
+            document.getElementById('editOldPrice').value = hasDiscount ? product.price_compare : '';
+
+            updateImagePreview();
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function toggleOldPriceField() {
+            const checked = document.getElementById('editHasDiscount').checked;
+            document.getElementById('oldPriceGroup').style.display = checked ? 'block' : 'none';
+            if (!checked) {
+                document.getElementById('editOldPrice').value = '';
+            }
+        }
+
+        function updateImagePreview() {
+            const url = document.getElementById('editImage').value.trim();
+            const container = document.getElementById('imagePreview');
+            if (url) {
+                container.innerHTML = `<img src="${escapeHtml(url)}" alt="Preview" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'><i class=\\'fas fa-image-slash\\'></i><span>Изображение не найдено</span></div>'">`;
+            } else {
+                resetImagePreview();
+            }
+        }
+
+        function handleImageFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Размер файла слишком большой (макс. 2 МБ)', true);
+                return;
+            }
+
+            const reader = new FileReader();
+            const originalFile = file;
+
+            showToast('Сжатие изображения...');
+            compressImage(originalFile, 800, 0.75)
+                .then(compressedDataUrl => {
+                    document.getElementById('editImage').value = compressedDataUrl;
+                    updateImagePreview();
+                    showToast('Изображение оптимизировано');
+                })
+                .catch(err => {
+                    console.error("Compression error:", err);
+                    // Fallback to original if compression fails
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById('editImage').value = e.target.result;
+                        updateImagePreview();
+                    };
+                    reader.readAsDataURL(originalFile);
+                });
+        }
+
+        function resetImagePreview() {
+            document.getElementById('imagePreview').innerHTML = `
+                <div class="placeholder">
+                    <i class="fas fa-image"></i>
+                    <span>Предпросмотр изображения</span>
+                </div>
+            `;
+        }
+
+        function saveProduct() {
+            const idVal = document.getElementById('editProductId').value;
+            const title = document.getElementById('editTitle').value.trim();
+            const priceVal = document.getElementById('editPrice').value;
+            const price = parseInt(priceVal) || 0;
+            const category = document.getElementById('editCategory').value;
+            const description = document.getElementById('editDescription').value.trim();
+            const picture = document.getElementById('editImage').value.trim();
+            const hasDiscount = document.getElementById('editHasDiscount').checked;
+            const oldPriceVal = document.getElementById('editOldPrice').value;
+            const oldPrice = hasDiscount ? (parseInt(oldPriceVal) || null) : null;
+
+            if (!title) {
+                showToast('Введите название товара', true);
+                return;
+            }
+            if (price <= 0) {
+                showToast('Укажите корректную цену', true);
+                return;
+            }
+
+            try {
+                if (idVal) {
+                    // Edit
+                    const idx = products.findIndex(p => p.id === parseInt(idVal));
+                    if (idx !== -1) {
+                        products[idx] = {
+                            ...products[idx],
+                            title,
+                            price,
+                            price_compare: oldPrice,
+                            category,
+                            description,
+                            picture
+                        };
+                        showToast('Товар успешно обновлён');
+                    }
+                } else {
+                    // Add
+                    const maxId = products.length > 0 ? Math.max(...products.map(p => p.id)) : 0;
+                    products.push({
+                        id: maxId + 1,
+                        title,
+                        price,
+                        price_compare: oldPrice,
+                        category,
+                        description,
+                        picture
+                    });
+                    showToast('Товар успешно добавлен');
+                }
+
+                // Ensure category mapping and tracking exists
+                if (category && !categories.includes(category)) {
+                    categories.push(category);
+                    localStorage.setItem('yan_categories', JSON.stringify(categories));
+                }
+
+                const mapping = JSON.parse(localStorage.getItem('yan_cat_to_section') || '{}');
+                if (!mapping[category]) {
+                    mapping[category] = 'shop';
+                    localStorage.setItem('yan_cat_to_section', JSON.stringify(mapping));
+                }
+
+                saveToStorage();
+                renderFilters();
+                renderProducts();
+                updateStats();
+            } catch (e) {
+                console.error("Save execution error:", e);
+                showToast('Ошибка при сохранении: ' + e.message, true);
+            } finally {
+                closeModal();
+            }
+        }
+
+        // ==================== MODAL: DELETE ====================
+        function openDeleteModal(id) {
+            deleteTargetId = id;
+            const product = products.find(p => p.id === id);
+            if (product) {
+                document.getElementById('deleteProductName').innerHTML =
+                    `Вы действительно хотите удалить <strong>«${escapeHtml(product.title)}»</strong>? Это действие необратимо.`;
+            }
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+            deleteTargetId = null;
+        }
+
+        function confirmDelete() {
+            if (deleteTargetId !== null) {
+                products = products.filter(p => p.id !== deleteTargetId);
+                saveToStorage();
+                renderFilters();
+                renderProducts();
+                updateStats();
+                showToast('Товар удалён');
+            }
+            closeDeleteModal();
+        }
+
+        // ==================== TOAST ====================
+        function showToast(message, isError = false) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${isError ? 'error' : ''}`;
+            toast.innerHTML = `
+                <i class="fas ${isError ? 'fa-circle-exclamation' : 'fa-circle-check'}"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(40px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ==================== ADMIN REVIEWS ====================
+        let adminSelectedStar = 0;
+        let adminReviewPhotoData = null;
+
+        function showReviewsAdmin() {
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('settings-view').style.display = 'none';
+            document.getElementById('reviews-admin-view').style.display = 'block';
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('nav-reviews').classList.add('active');
+            closeSidebar();
+            renderAdminReviews();
+        }
+
+        function showDashboardFromReviews() {
+            document.getElementById('reviews-admin-view').style.display = 'none';
+            showDashboard();
+        }
+
+        function adminPickStar(val) {
+            adminSelectedStar = val;
+            document.querySelectorAll('.admin-star-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i < val);
+                btn.textContent = i < val ? '★' : '☆';
+            });
+        }
+
+        function adminPreviewPhoto(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const originalFile = file;
+            showToast('Сжатие фото отзыва...');
+            compressImage(originalFile, 600, 0.7)
+                .then(compressed => {
+                    adminReviewPhotoData = compressed;
+                    document.getElementById('admin-rev-photo-preview').innerHTML =
+                        `<img src="${adminReviewPhotoData}" style="max-width:180px; max-height:120px; border-radius:10px; display:block;">`;
+                    document.getElementById('admin-rev-photo-clear').style.display = 'inline';
+                    showToast('Фото сжато успешно');
+                })
+                .catch(err => {
+                    const reader = new FileReader();
+                    reader.onload = function (ev) {
+                        adminReviewPhotoData = ev.target.result;
+                        document.getElementById('admin-rev-photo-preview').innerHTML =
+                            `<img src="${adminReviewPhotoData}" style="max-width:180px; max-height:120px; border-radius:10px; display:block;">`;
+                        document.getElementById('admin-rev-photo-clear').style.display = 'inline';
+                    };
+                    reader.readAsDataURL(originalFile);
+                });
+        }
+
+        function adminRemovePhoto() {
+            adminReviewPhotoData = null;
+            document.getElementById('admin-rev-photo-preview').innerHTML = '';
+            document.getElementById('admin-rev-photo').value = '';
+            document.getElementById('admin-rev-photo-clear').style.display = 'none';
+        }
+
+        function adminAddReview() {
+            const name = document.getElementById('admin-rev-name').value.trim();
+            const text = document.getElementById('admin-rev-text').value.trim();
+            const dateInput = document.getElementById('admin-rev-date').value.trim();
+
+            if (!name || !adminSelectedStar || !text) {
+                showToast('Заполните имя, оценку и текст отзыва');
+                return;
+            }
+
+            let adminRevs = [];
+            try { adminRevs = JSON.parse(localStorage.getItem('yan_reviews')) || []; } catch (e) { }
+
+            const review = {
+                id: Date.now(),
+                name,
+                rating: adminSelectedStar,
+                text,
+                photo: adminReviewPhotoData || null,
+                date: dateInput || new Date().toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                fromAdmin: true
+            };
+            adminRevs.unshift(review);
+            try {
+                localStorage.setItem('yan_reviews', JSON.stringify(adminRevs));
+                updateStorageUsage();
+            } catch (e) {
+                showToast('Ошибка: памяти недостаточно для сохранения отзыва', true);
+            }
+
+            // Reset
+            document.getElementById('admin-rev-name').value = '';
+            document.getElementById('admin-rev-text').value = '';
+            document.getElementById('admin-rev-date').value = '';
+            adminPickStar(0);
+            adminRemovePhoto();
+
+            showToast('Отзыв добавлен');
+            renderAdminReviews();
+        }
+
+        function adminDeleteReview(id) {
+            if (!confirm('Удалить этот отзыв?')) return;
+            let adminRevs = [];
+            try { adminRevs = JSON.parse(localStorage.getItem('yan_reviews')) || []; } catch (e) { }
+            adminRevs = adminRevs.filter(r => r.id !== id);
+            localStorage.setItem('yan_reviews', JSON.stringify(adminRevs));
+            showToast('Отзыв удалён');
+            renderAdminReviews();
+        }
+
+        function renderAdminReviews() {
+            const el = document.getElementById('admin-reviews-list');
+            if (!el) return;
+            let adminRevs = [];
+            try { adminRevs = JSON.parse(localStorage.getItem('yan_reviews')) || []; } catch (e) { }
+
+            if (adminRevs.length === 0) {
+                el.innerHTML = '<p style="color:#aaa; text-align:center; padding:20px;">Отзывов пока нет.</p>';
+                return;
+            }
+
+            el.innerHTML = adminRevs.map(r => {
+                const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+                const photoHtml = r.photo ? `<img src="${r.photo}" style="max-width:120px; max-height:80px; border-radius:8px; margin-top:8px; display:block;">` : '';
+                const adminBadge = r.fromAdmin ? `<span style="background:var(--accent-gradient); color:white; font-size:10px; padding:2px 8px; border-radius:20px; margin-left:6px;">Добавлен вами</span>` : '';
+                return `
+                    <div style="padding:14px 0; border-bottom:1px solid #f1f3f5; display:flex; gap:14px; align-items:flex-start;">
+                        <div style="flex:1;">
+                            <div style="display:flex; align-items:center; margin-bottom:4px;">
+                                <strong style="font-size:14px;">${escapeAdminRev(r.name)}</strong>
+                                ${adminBadge}
+                                <span style="margin-left:auto; font-size:11px; color:#aaa;">${r.date}</span>
+                            </div>
+                            <div style="color:#f5a623; font-size:15px; margin-bottom:4px;">${stars}</div>
+                            <div style="font-size:13px; color:#555;">${escapeAdminRev(r.text)}</div>
+                            ${photoHtml}
+                        </div>
+                        <button onclick="adminDeleteReview(${r.id})"
+                            style="background:none; border:none; color:var(--danger); cursor:pointer; font-size:18px; padding:4px; flex-shrink:0;" title="Удалить отзыв">
+                            <i class="fas fa-trash-can"></i>
+                        </button>
+                    </div>`;
+            }).join('');
+        }
+
+        function escapeAdminRev(str) {
+            return String(str)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // ==================== CLOSE MODALS ON ESC / OUTSIDE CLICK ====================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeDeleteModal();
+            }
+        });
+
+        document.getElementById('productModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('productModal')) closeModal();
+        });
+
+        document.getElementById('deleteModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('deleteModal')) closeDeleteModal();
+        });
+    </script>
+</body>
+
+</html>
